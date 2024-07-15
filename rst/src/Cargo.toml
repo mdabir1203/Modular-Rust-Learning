@@ -1,8 +1,0 @@
-[package]
-name = "minimal_gui"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-egui = "0.15"
-eframe = "0.15"
