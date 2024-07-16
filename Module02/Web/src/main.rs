@@ -1,19 +1,28 @@
 use std::net::TcpListener;
 use std::io::{Read, Write};
+use std::thread;
 
 fn main() -> std::io::Result<()> {
     let listener = TcpListener::bind("127.0.0.1:7878")?;
     println!("Server is running on 127.0.0.1:7878");
 
     for stream in listener.incoming() {
-        let mut stream = stream?;
-        handle_connection(&mut stream)?;
+        match stream {
+            Ok(stream) => {
+                thread::spawn(move || {
+                    if let Err(e) = handle_connection(stream) {
+                        eprintln!("Error handling connection: {:?}", e);
+                    }
+                });
+            }
+            Err(e) => eprintln!("Error accepting connection: {:?}", e),
+        }
     }
 
     Ok(())
 }
 
-fn handle_connection(stream: &mut std::net::TcpStream) -> std::io::Result<()> {
+fn handle_connection(mut stream: std::net::TcpStream) -> std::io::Result<()> {
     let mut buffer = [0; 1024];
     stream.read(&mut buffer)?;
 
