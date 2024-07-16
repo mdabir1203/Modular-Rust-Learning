@@ -1,12 +1,12 @@
 use std::collections::HashMap;
 use std::sync::Arc;
-use tokio::sync::Mutex;
-use tokio::sync::RwLock;
+use tokio::sync::{Mutex, RwLock};
 use thiserror::Error;
 use tokio_tungstenite::tungstenite::Error as WsError;
 use tokio::net::{TcpListener, TcpStream};
 use tokio_tungstenite::accept_async;
 use tokio_tungstenite::WebSocketStream;
+use futures_util::{StreamExt, SinkExt};
 use uuid::Uuid;
 
 #[derive(Error, Debug)]
@@ -48,12 +48,12 @@ async fn process_messages(peers: Peers) -> Result<(), MyError> {
 }
 
 async fn process_single_message(username: &String, websocket: Arc<Mutex<WebSocketStream<TcpStream>>>) -> Result<(), MyError> {
-    let mut websocket = websocket.lock();
+    let mut websocket = websocket.lock().await;
     while let Some(message) = websocket.next().await {
         match message {
             Ok(msg) => {
                 println!("Received a message from {}: {:?}", username, msg);
-                websocket.send(msg).unwrap()?;
+                websocket.send(msg).await?;
             }
             Err(e) => {
                 eprintln!("Error receiving message from {}: {:?}", username, e);
