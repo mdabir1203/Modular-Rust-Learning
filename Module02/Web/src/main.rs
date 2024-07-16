@@ -1,47 +1,107 @@
-use std::net::TcpListener;
-use std::io::{Read, Write};
-use std::thread;
+use std::collections::HashMap;
+use std::sync::Arc;
+use tokio::sync::Mutex;
+use tokio::sync::RwLock;
+use thiserror::Error;
+use tokio_tungstenite::tungstenite::Error as WsError;
+use tokio::net::{TcpListener, TcpStream};
+use tokio_tungstenite::accept_async;
+use tokio_tungstenite::WebSocketStream;
+use uuid::Uuid;
 
-fn main() -> std::io::Result<()> {
-    let listener = TcpListener::bind("127.0.0.1:7878")?;
-    println!("Server is running on 127.0.0.1:7878");
+#[derive(Error, Debug)]
+pub enum MyError {
+    #[error("WebSocket error: {0}")]
+    WebSocketError(#[from] WsError),
+    
+    #[error("IO error: {0}")]
+    IoError(#[from] std::io::Error),
+    
+    #[error("Message processing error: {0}")]
+    MessageProcessingError(String),
+    
+    #[error("Unexpected disconnection")]
+    UnexpectedDisconnection,
+}
 
-    for stream in listener.incoming() {
-        match stream {
-            Ok(stream) => {
-                thread::spawn(move || {
-                    if let Err(e) = handle_connection(stream) {
-                        eprintln!("Error handling connection: {:?}", e);
-                    }
-                });
-            }
-            Err(e) => eprintln!("Error accepting connection: {:?}", e),
-        }
-    }
+type Peers = Arc<RwLock<HashMap<String, Arc<Mutex<WebSocketStream<TcpStream>>>>>>;
 
+async fn handle_connection(username: String, websocket: WebSocketStream<TcpStream>, peers: Peers) -> Result<(), MyError> {
+    let mut write_guard = peers.write().await;
+    write_guard.insert(username.clone(), Arc::new(Mutex::new(websocket)));
+    println!("User {} connected.", username);
     Ok(())
 }
 
-fn handle_connection(mut stream: std::net::TcpStream) -> std::io::Result<()> {
-    let mut buffer = [0; 1024];
-    stream.read(&mut buffer)?;
-
-    let get = b"GET / HTTP/1.1\r\n";
-    let (status_line, contents) = if buffer.starts_with(get) {
-        ("HTTP/1.1 200 OK", include_str!("test.html"))
-    } else {
-        ("HTTP/1.1 404 NOT FOUND", include_str!("404.html"))
-    };
-
-    let response = format!(
-        "{}\r\nContent-Length: {}\r\n\r\n{}",
-        status_line,
-        contents.len(),
-        contents
-    );
-
-    stream.write(response.as_bytes())?;
-    stream.flush()?;
-
+async fn process_messages(peers: Peers) -> Result<(), MyError> {
+    let read_guard = peers.read().await;
+    for (username, websocket) in read_guard.iter() {
+        let websocket = Arc::clone(websocket);
+        let username = username.clone();
+        tokio::spawn(async move {
+            if let Err(e) = process_single_message(&username, websocket).await {
+                eprintln!("Error processing message for {}: {:?}", username, e);
+            }
+        });
+    }
     Ok(())
+}
+
+async fn process_single_message(username: &String, websocket: Arc<Mutex<WebSocketStream<TcpStream>>>) -> Result<(), MyError> {
+    let mut websocket = websocket.lock();
+    while let Some(message) = websocket.next().await {
+        match message {
+            Ok(msg) => {
+                println!("Received a message from {}: {:?}", username, msg);
+                websocket.send(msg).unwrap()?;
+            }
+            Err(e) => {
+                eprintln!("Error receiving message from {}: {:?}", username, e);
+                return Err(MyError::MessageProcessingError(format!("Error receiving message: {:?}", e)));
+            }
+        }
+    }
+    Ok(())
+}
+
+async fn handle_disconnection(username: String, peers: Peers) -> Result<(), MyError> {
+    let mut write_guard = peers.write().await;
+    write_guard.remove(&username);
+    println!("User {} disconnected.", username);
+    Ok(())
+}
+
+#[tokio::main]
+async fn main() -> Result<(), MyError> {
+    let peers: Peers = Arc::new(RwLock::new(HashMap::new()));
+    let listener = TcpListener::bind("127.0.0.1:8080").await?;
+
+    println!("Server listening on 127.0.0.1:8080");
+
+    loop {
+        let (stream, _) = listener.accept().await?;
+        let peers = Arc::clone(&peers);
+
+        tokio::spawn(async move {
+            match accept_async(stream).await {
+                Ok(websocket) => {
+                    let username = Uuid::new_v4().to_string();
+                    if let Err(e) = handle_connection(username.clone(), websocket, peers.clone()).await {
+                        eprintln!("Error handling connection for {}: {:?}", username, e);
+                    }
+
+                    // Start processing messages for the new connection
+                    if let Err(e) = process_messages(peers.clone()).await {
+                        eprintln!("Error processing messages: {:?}", e);
+                    }
+
+                    // Handle disconnection
+                    if let Err(e) = handle_disconnection(username, peers.clone()).await {
+                        eprintln!("Error handling disconnection: {:?}", e);
+                    }
+                }
+                Err(e) => eprintln!("Error accepting connection: {:?}", e),
+            }
+        });
+    }
 }

@@ -1,1 +1,0 @@
-/mnt/c/Users/mabba/Downloads/Invent_Rust/Module02/Web/target/release/simple_web_server: /mnt/c/Users/mabba/Downloads/Invent_Rust/Module02/Web/src/404.html /mnt/c/Users/mabba/Downloads/Invent_Rust/Module02/Web/src/main.rs /mnt/c/Users/mabba/Downloads/Invent_Rust/Module02/Web/src/test.html
