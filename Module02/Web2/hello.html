@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md Abir's Medium Blog Posts</title>
+    <style>
+        :root {
+            --bg-color: #2c0e37;
+            --text-color: #f0e6d2;
+            --accent-color: #ff6b6b;
+            --card-bg: #3d1e4a;
+            --card-border: #ff6b6b;
+            --hover-bg: #4a2359;
+        }
+        body {
+            font-family: Open Sans, sans-serif;
+            background: linear-gradient(45deg, #2c0e37, #4a2359);
+            color: var(--text-color);
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            margin: 0 -20px;
+        }
+        .card-container {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 8px;
+            padding: 20px;
+            width: 300px;
+            height: 150px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            background-color: var(--hover-bg);
+        }
+        .card h2 {
+            font-size: 1.2em;
+            margin: 0;
+            color: var(--accent-color);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .card-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .card a {
+            background-color: var(--accent-color);
+            color: var(--card-bg);
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            align-self: flex-start;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+        .card a:hover {
+            background-color: #ff8c8c;
+        }
+        .card-container.scrolled {
+            transform: translateZ(-100px); /* Move the cardholder back in Z-axis */
+        }
+        .card.scrolled {
+            transform: translateZ(100px) scale(0.9); /* Move the card forward in Z-axis and scale it down */
+        }
+        .navigation {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .nav-btn {
+            background-color: var(--accent-color);
+            color: var(--card-bg);
+            border: none;
+            size: 18px;
+            padding: 10px 15px;
+            margin: 0 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover {
+            background-color: #2e4053;
+            transform: scale(1.05);
+        }
+        #lastUpdated {
+            text-align: center;
+            font-size: 0.8em;
+            margin-top: 20px;
+            font-style: italic;
+            color: var(--text-color);
+        }
+        .loading, .error {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-color);
+        }
+        .error {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>UknowWho' s Blog</h1>
+        </header>
+        <main id="content" aria-live="polite">
+            <div class="loading">Loading blog posts...</div>
+        </main>
+        <div class="navigation">
+            <button id="prevBtn" class="nav-btn">Previous</button>
+            <button id="nextBtn" class="nav-btn">Next</button>
+        </div>
+        <p id="lastUpdated"></p>
+    </div>
+
+    <script>
+        const mediumUsername = 'md.abir1203';
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${mediumUsername}`;
+        const content = document.getElementById('content');
+        const lastUpdated = document.getElementById('lastUpdated');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const cacheKey = 'mediumBlogPosts';
+        const cacheExpiration = 60 * 60 * 1000; // 1 hour
+
+        let currentIndex = 0;
+
+        function displayPosts(fetchedPosts) {
+            if (!Array.isArray(fetchedPosts) || fetchedPosts.length === 0) {
+                displayError('No posts found or invalid data received.');
+                return;
+            }
+            const carousel = document.createElement('div');
+            carousel.className = 'carousel';
+            const cardContainer = document.createElement('div');
+            cardContainer.className = 'card-container';
+
+            fetchedPosts.forEach(post => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <h2>${post.title || 'Untitled Post'}</h2>
+                    <a href="${post.link}" target="_blank" rel="noopener noreferrer">Read More</a>
+                `;
+                cardContainer.appendChild(card);
+            });
+
+            carousel.appendChild(cardContainer);
+            content.innerHTML = '';
+            content.appendChild(carousel);
+
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const cardContainer = document.querySelector('.card-container');
+            const cardWidth = 345; // card width + margin
+            cardContainer.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
+        }
+
+        function displayError(message) {
+            console.error('Error:', message);
+            content.innerHTML = `<p class="error" role="alert">${message}</p>`;
+        }
+
+        function updateLastUpdated() {
+            lastUpdated.textContent = `Last updated: ${new Date().toLocaleString()}`;
+        }
+
+        function fetchPosts() {
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'ok' && Array.isArray(data.items)) {
+                        localStorage.setItem(cacheKey, JSON.stringify({
+                            timestamp: Date.now(),
+                            posts: data.items
+                        }));
+                        displayPosts(data.items);
+                        updateLastUpdated();
+                    } else {
+                        throw new Error('Invalid data structure received from API');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching blog posts:', error);
+                    displayError(`Failed to load blog posts. ${error.message}`);
+                });
+        }
+
+        function loadPosts() {
+            try {
+                const cachedData = localStorage.getItem(cacheKey);
+                if (cachedData) {
+                    const { timestamp, posts } = JSON.parse(cachedData);
+                    if (Date.now() - timestamp < cacheExpiration) {
+                        displayPosts(posts);
+                        updateLastUpdated();
+                        return;
+                    }
+                }
+                fetchPosts();
+            } catch (error) {
+                console.error('Error loading posts:', error);
+                fetchPosts(); // Fallback to fetching fresh data
+            }
+        }
+
+        prevBtn.addEventListener('click', () => {
+            const cardContainer = document.querySelector('.card-container');
+            const cardCount = cardContainer.children.length;
+            currentIndex = (currentIndex - 1 + cardCount) % cardCount;
+            updateCarousel();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const cardContainer = document.querySelector('.card-container');
+            const cardCount = cardContainer.children.length;
+            currentIndex = (currentIndex + 1) % cardCount;
+            updateCarousel();
+        });
+
+        // Touch swipe functionality
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+
+        function handleSwipe() {
+            const swipeThreshold = 35;
+            if (touchEndX < touchStartX - swipeThreshold) {
+                nextBtn.click();
+            }
+            if (touchEndX > touchStartX + swipeThreshold) {
+                prevBtn.click();
+            }
+        }
+
+        loadPosts();
+    </script>
+</body>
+</html>
