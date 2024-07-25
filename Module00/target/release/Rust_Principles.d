@@ -1,1 +1,0 @@
-/mnt/c/Users/mabba/Downloads/Rust_C/Rust_Principles/target/release/Rust_Principles: /mnt/c/Users/mabba/Downloads/Rust_C/Rust_Principles/src/cli.rs /mnt/c/Users/mabba/Downloads/Rust_C/Rust_Principles/src/main.rs
