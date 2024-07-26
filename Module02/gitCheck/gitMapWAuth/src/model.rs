@@ -1,5 +1,4 @@
-use serde::Deserialize;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct RepoInfo {
@@ -11,9 +10,7 @@ pub struct RepoInfo {
 }
 
 #[derive(Serialize, Deserialize)]
-struct Credentials {
-    user: String,
-    pass: String,
+pub struct Credentials {
+    pub user: String,
+    pub pass: String,
 }
-
-
