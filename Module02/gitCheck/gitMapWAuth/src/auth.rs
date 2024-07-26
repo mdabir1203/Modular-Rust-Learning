@@ -20,3 +20,22 @@ pub async fn login(credentials: web::Json<Credentials>) -> impl Responder {
 }
 
 // Implementing middleware
+async fn auth_middleware(
+    req: ServiceRequest,
+    credentials: BearerAuth,
+) -> Result<ServiceRequest, actix_web::Error> {
+    // Validate the JWT token
+    let token = credentials.token();
+    let validation = Validation::default();
+    let result = decode::<String> (
+        &token,
+        &DecodingKey::from_secret("sec".as_ref()),
+        &validation,
+    );
+
+    // Check token validity
+    match result {
+        Ok(_) => Ok(req),
+        Err(_) => Err(actix_web::ErrorUnauthorized("Invalid Token")),
+    }
+}
