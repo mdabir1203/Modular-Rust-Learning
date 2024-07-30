@@ -1,0 +1,102 @@
+Developing a JWT Auth Server in Rust with Warp:
+Step 1: Defining the Architecture
+
+Divide the application into modules:
+src/jwt: Contains JWT related logic (token generation, validation, claims)
+src/auth: Handles authentication logic (user login, registration)
+src/server: Runs the web server and routes requests
+Use dependency injection to pass dependencies between modules.
+Step 2: JWT Module
+
+Implement functions for:
+generate_token: Generates a JWT token from user data
+validate_token: Validates a JWT token and returns user data
+get_claims: Extracts claims from a JWT token
+Step 3: Auth Module
+
+Implement functions for:
+login: Authenticates a user with username and password
+register: Registers a new user
+Step 4: Server Module
+
+Implement the main function:
+Creates a Warp server
+Mounts routes for /login and /register to the auth module
+Mounts a route /token that accepts a username and password and returns a JWT token
+Step 5: Atomic Design Thinking
+
+Focus on creating reusable, modular components.
+Minimize dependencies between modules.
+Use clear and concise code with descriptive names.
+Write unit tests for all functions.
+Additional Considerations:
+
+Security: Implement proper authentication and authorization mechanisms.
+Concurrency: Use asynchronous frameworks like Warp for high performance.
+Testing: Write unit tests and integration tests for the application.
+Possible Tools and Libraries:
+
+Warp: Web framework for Rust
+Tokio: Asynchronous I/O library
+jose: JWT library for Rust
+serde: Data serialization and deserialization library
+Possible Next Steps:
+
+Implement the login and register functions in the Auth module.
+Implement the token generation and validation functions in the JWT module.
+Implement the server main function and mount the routes.
+Write unit tests for the application.
+
+
+## Getting Started
+
+
+### Clone the Repository:
+```sh
+git clone <repository-url>
+cd <repository-directory>
+``` 
+### Install Dependencies:
+``` cargo build ```
+### Run the Server:
+``` cargo run ```
+
+To Test the auth server, execute the following command in the terminal:
+
+## Testing the Endpoints
+### Using curl
+### Login Endpoint
+
+### Send a POST request to the login endpoint with a JSON body containing the username and password:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "password"}' http://127.0.0.1:3030/login
+```
+If the credentials are correct, you should receive a JSON response with a JWT token:
+![alt text](image.png)
+
+
+Copy the Token 
+```json
+{"token": "your_jwt_token"}
+```
+### Protected Endpoint
+
+Send a GET request to the protected endpoint with the Authorization header containing the token received from the login endpoint:
+
+```bash
+TOKEN="your_jwt_token"  # Replace with the actual token
+curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:3030/protected
+```
+
+If the token is valid, you should receive:
+```json
+"Access granted"
+``` 
+If the token is invalid or missing, you should receive:
+```json 
+"Forbidden"
+```
+
+## Conclusion
+By completing this project, you will gain a solid understanding of building web servers in Rust using Warp and JWT for authentication. You will also reinforce your knowledge of Rust's syntax and fundamental principles, preparing you for more advanced Rust programming tasks
