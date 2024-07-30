@@ -1,4 +1,8 @@
+mod handlers;
+mod models;
 mod routes;
+mod services;
+
 use crate::routes::{login_filter, validate_filter};
 use warp::Filter;
 

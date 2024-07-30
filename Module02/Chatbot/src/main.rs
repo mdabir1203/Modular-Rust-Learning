@@ -1,3 +1,8 @@
+/**
+ * @file main.rs
+ * @brief Rusty : A simple chatbot implemented in Rust.
+ */
+
 use serde::{Serialize, Deserialize};
 use std::collections::HashMap;
 use std::fs::File;
