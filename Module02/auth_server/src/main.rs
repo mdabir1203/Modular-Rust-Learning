@@ -1,63 +1,23 @@
-use warp::{Filter, Rejection, Reply};
-use serde::{Deserialize, Serialize};
-use jsonwebtoken::{encode, decode, Header, Algorithm, Validation, EncodingKey, DecodingKey};
-use serde_json::json;
+mod handlers;
+mod jwt;
 
-// Define the User struct
-#[derive(Deserialize)]
-struct User {
-    username: String,
-    password: String,
-}
+use warp::{Filter};
+use crate::handlers::{protected, login};
 
-// Define the Claims struct for JWT
-#[derive(Serialize, Deserialize)]
-struct Claims {
-    sub: String,
-    exp: usize,
-}
 
-// Generate a JWT token
-fn generate_jwt(username: &str) -> String {
-    let expiration = chrono::Utc::now()
-        .checked_add_signed(chrono::Duration::seconds(60))
-        .expect("valid timestamp")
-        .timestamp();
 
-    let claims = Claims {
-        sub: username.to_owned(),
-        exp: expiration as usize,
-    };
-
-    encode(&Header::default(), &claims, &EncodingKey::from_secret("secret".as_ref())).unwrap()
-}
-
-// Validate the JWT token
-fn jwt_validation(token: &str) -> bool {
-    let validation = Validation::new(Algorithm::HS256);
-    let token_data = decode::<Claims>(token, &DecodingKey::from_secret("secret".as_ref()), &validation);
-    token_data.is_ok()
-}
-
-// Handle login requests
-pub async fn login(user: User) -> Result<impl Reply, Rejection> {
-    if user.username == "DragonBall" && user.password == "Vegeta" {
-        let token = generate_jwt(&user.username);
-        Ok(warp::reply::json(&json!({ "token": token })))
-    } else {
-        Ok(warp::reply::json(&json!("\nUnauthorized")))
-    }
-}
-
-// Handle protected route requests
-pub async fn protected(token: String) -> Result<impl Reply, Rejection> {
-    if jwt_validation(&token) {
-        return Ok(StatusCode:: Access_Granted)
-    } else {
-        Ok(warp::reply::json(&json!("\nForbidden")))
-    }
-}
-
+/// @brief The main function that sets up and runs the Warp server.
+/// 
+/// This function is the entry point of the application. It defines the routes for login and protected endpoints,
+/// combines them, and starts the Warp server to listen for incoming requests.
+/// 
+/// @details
+/// - The `login_route` handles POST requests to the `/login` path. It expects a JSON body and calls the `login` handler.
+/// - The `protected_route` handles GET requests to the `/protected` path. It expects an `authorization` header and calls the `protected` handler.
+/// - The routes are combined using the `or` method, allowing the server to handle both routes.
+/// - The server listens on `127.0.0.1:8080`.
+/// 
+/// @return This function does not return anything as it runs the server indefinitely.
 #[tokio::main]
 async fn main() {
     // Define the login route
@@ -79,5 +39,5 @@ async fn main() {
     let routes = login_route.or(protected_route);
 
     // Start the Warp server
-    warp::serve(routes).run(([127, 0, 0, 1], 8080)).await;
+    warp::serve(routes).run(([127, 0, 0, 1], 5500)).await;
 }
