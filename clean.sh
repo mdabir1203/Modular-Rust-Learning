@@ -1,4 +1,13 @@
-find . | grep "Cargo.toml$" |                     # Find all cargo.toml files \
-sed 's#/[^/]*$##' |                               # Remove the filename leaving us with the directories containing cargo.toml files \
-xargs -L1 printf "cd \"%s\"; cargo clean; rm -f Cargo.lock; cd -\n" |   # Print "cd path/to/crate; cargo clean; rm -f Cargo.lock; cd -" \
-bash
+#!/bin/bash
+
+# Find all directories containing Cargo.toml files
+directories=$(find . -name "Cargo.toml" -exec dirname {} \; | sort -u)
+
+# Loop through each directory and run the commands
+for dir in $directories; do
+  (
+    cd "$dir" || exit
+    cargo clean
+    rm -f Cargo.lock
+  )
+done
