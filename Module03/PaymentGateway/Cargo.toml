@@ -1,0 +1,9 @@
+[package]
+name = "PaymentGateway"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = "4.8.0"
+clippy = "0.0.302"
+rustfmt = "0.10.0"
