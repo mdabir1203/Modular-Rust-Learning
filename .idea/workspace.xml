@@ -15,217 +15,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70258e2e-935e-4239-8f5c-9cad9ccd284d" name="Changes" comment="added gitignore">
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/src/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/src/models/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/src/routes/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/src/services/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/CACHEDIR.TAG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.cargo-lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/autocfg-22eeb013b9dfb539/lib-autocfg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/autocfg-22eeb013b9dfb539/lib-autocfg.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/byteorder-28125c5228e44307/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/byteorder-28125c5228e44307/lib-byteorder.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/cpufeatures-1ebf21e5118f4d70/dep-lib-cpufeatures" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/fnv-131a052f6bcf314d/dep-lib-fnv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/fnv-131a052f6bcf314d/lib-fnv.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/form_urlencoded-659e089fb5eb2706/lib-form_urlencoded" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/futures-core-a42680bc108f39ae/dep-lib-futures-core" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/futures-core-a42680bc108f39ae/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/futures-sink-e66b7dd142af0d48/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/futures-sink-e66b7dd142af0d48/lib-futures-sink" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/futures-sink-e66b7dd142af0d48/lib-futures-sink.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/futures-task-cf5e60c171375fc8/lib-futures-task.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/generic-array-06a5e2981f59caea/run-build-script-build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/generic-array-06a5e2981f59caea/run-build-script-build-script-build.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/http-de2f9d4fa959feb0/lib-http" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/httparse-71e70bb1e44a9fa7/dep-lib-httparse" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/httparse-77493db6ef026707/run-build-script-build-script-build.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/httparse-d3aaa19d38abe0c3/build-script-build-script-build.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/httparse-d3aaa19d38abe0c3/dep-build-script-build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/idna-19648a352790f071/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/libc-ad6ca27c9ce76f3b/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/libc-ad6ca27c9ce76f3b/lib-libc.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/lock_api-7c1635dfb6b341d8/build-script-build-script-build.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/lock_api-7c1635dfb6b341d8/dep-build-script-build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/lock_api-7ced0db7965ae097/run-build-script-build-script-build.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/lock_api-d5abb00382c00380/lib-lock_api" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/log-161dc986a18b5d07/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/log-161dc986a18b5d07/lib-log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/mio-f0a4ecae00fa592b/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/mio-f0a4ecae00fa592b/lib-mio.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/num-traits-4a887ccc39f10647/lib-num-traits.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/num-traits-817f70d9b800eb4b/run-build-script-build-script-build.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/num-traits-f15be61ce935edce/build-script-build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/once_cell-33d993f80ee9cfe9/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/parking_lot-f83f266a6246a29f/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/parking_lot-f83f266a6246a29f/lib-parking_lot.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/parking_lot_core-a6e6893b441db62f/dep-lib-parking_lot_core" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/parking_lot_core-a6e6893b441db62f/lib-parking_lot_core" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/parking_lot_core-a6e6893b441db62f/lib-parking_lot_core.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/parking_lot_core-cee070a7360e29f1/dep-build-script-build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/percent-encoding-0daffc2446e84853/dep-lib-percent-encoding" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/pin-project-lite-b88c3073345e7aa3/dep-lib-pin-project-lite" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/pin-project-lite-b88c3073345e7aa3/lib-pin-project-lite.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/pin-utils-b9d840e5f15f7c0a/dep-lib-pin-utils" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/pin-utils-b9d840e5f15f7c0a/lib-pin-utils" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/proc-macro2-263b8962a4a8e146/run-build-script-build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/proc-macro2-263b8962a4a8e146/run-build-script-build-script-build.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/proc-macro2-a86869977f349329/dep-lib-proc_macro2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/proc-macro2-a86869977f349329/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/proc-macro2-a86869977f349329/lib-proc_macro2.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/proc-macro2-efdfe9242146dae1/build-script-build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/quote-d81e9f84ee1a7225/lib-quote.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/rand_core-c4fe950cf7ce1db3/lib-rand_core.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/scopeguard-80b736d9316ac380/lib-scopeguard" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/scopeguard-80b736d9316ac380/lib-scopeguard.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/serde-75baf3c20d1f4313/run-build-script-build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/serde-e31aeecb73df454b/build-script-build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/serde-e31aeecb73df454b/build-script-build-script-build.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/signal-hook-registry-f3c0698a94d985bf/dep-lib-signal-hook-registry" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/signal-hook-registry-f3c0698a94d985bf/lib-signal-hook-registry" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/signal-hook-registry-f3c0698a94d985bf/lib-signal-hook-registry.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/slab-55eb723ea911eb65/lib-slab.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/slab-ef93470083eee0cb/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/smallvec-a174439b291683a2/lib-smallvec.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/socket2-8c5836f536107076/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/socket2-8c5836f536107076/lib-socket2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/syn-274b00f8aa435890/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/tinyvec-c88714fee1688ca6/lib-tinyvec.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/tinyvec_macros-97f8e1d43e96ff3a/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/tinyvec_macros-97f8e1d43e96ff3a/lib-tinyvec_macros.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/typenum-172f2ae57d4a64ee/dep-build-script-build-script-main" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/unicase-5a53aef10ed11db9/dep-lib-unicase" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/unicase-5a53aef10ed11db9/lib-unicase" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/unicase-c0eee2bbcc4eb2ab/build-script-build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/unicase-fe74999d1fab98a7/run-build-script-build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/unicode-bidi-62e2bee1445f949c/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/unicode-bidi-62e2bee1445f949c/lib-unicode_bidi.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/unicode-normalization-f00ebaf0e2cd4504/lib-unicode-normalization" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/unicode-normalization-f00ebaf0e2cd4504/lib-unicode-normalization.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/.fingerprint/version_check-ac4ef340d2de3bdb/lib-version_check.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/generic-array-06a5e2981f59caea/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/generic-array-06a5e2981f59caea/output" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/generic-array-06a5e2981f59caea/stderr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/httparse-77493db6ef026707/output" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/httparse-77493db6ef026707/root-output" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/httparse-77493db6ef026707/stderr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/httparse-d3aaa19d38abe0c3/build_script_build-d3aaa19d38abe0c3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/libc-d49e7f3ff0d8795b/build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/libc-fa97e94a62cd1db5/output" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/libc-fa97e94a62cd1db5/stderr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/lock_api-7c1635dfb6b341d8/build_script_build-7c1635dfb6b341d8" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/lock_api-7ced0db7965ae097/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/lock_api-7ced0db7965ae097/out/probe0.ll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/num-bigint-64020cca59b3d1bc/build_script_build-64020cca59b3d1bc.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/num-traits-817f70d9b800eb4b/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/num-traits-817f70d9b800eb4b/output" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/num-traits-817f70d9b800eb4b/root-output" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/num-traits-817f70d9b800eb4b/stderr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/num-traits-f15be61ce935edce/build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/num-traits-f15be61ce935edce/build_script_build-f15be61ce935edce.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/proc-macro2-263b8962a4a8e146/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/proc-macro2-263b8962a4a8e146/out/proc_macro2.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/proc-macro2-263b8962a4a8e146/root-output" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/serde-75baf3c20d1f4313/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/serde-75baf3c20d1f4313/output" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/serde-e31aeecb73df454b/build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/serde-e31aeecb73df454b/build_script_build-e31aeecb73df454b" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/slab-d7aeaf79aa1e5fe7/out/probe0.ll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/slab-ef93470083eee0cb/build-script-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/slab-ef93470083eee0cb/build_script_build-ef93470083eee0cb.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/thiserror-8d62c9fded7e8039/build_script_build-8d62c9fded7e8039" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/thiserror-8d62c9fded7e8039/build_script_build-8d62c9fded7e8039.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/typenum-172f2ae57d4a64ee/build-script-main" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/typenum-172f2ae57d4a64ee/build_script_main-172f2ae57d4a64ee" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/typenum-620dd337a9434b2c/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/typenum-620dd337a9434b2c/out/consts.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/unicase-fe74999d1fab98a7/invoked.timestamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/build/unicase-fe74999d1fab98a7/root-output" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/byteorder-28125c5228e44307.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/cpufeatures-1ebf21e5118f4d70.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/futures_core-a42680bc108f39ae.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/futures_task-cf5e60c171375fc8.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/getrandom-aa31e0ef9eaf3ae8.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/idna-19648a352790f071.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libbytes-57a9c0ffce21990c.rlib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libbytes-57a9c0ffce21990c.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libcpufeatures-1ebf21e5118f4d70.rlib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libfnv-131a052f6bcf314d.rlib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libfutures_task-cf5e60c171375fc8.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libgetrandom-aa31e0ef9eaf3ae8.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libhttp-de2f9d4fa959feb0.rlib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/liblock_api-d5abb00382c00380.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libmio-f0a4ecae00fa592b.rlib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libmio-f0a4ecae00fa592b.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libnum_traits-4a887ccc39f10647.rlib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libnum_traits-4a887ccc39f10647.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libonce_cell-33d993f80ee9cfe9.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libparking_lot-f83f266a6246a29f.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libparking_lot_core-a6e6893b441db62f.rlib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libparking_lot_core-a6e6893b441db62f.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libpercent_encoding-0daffc2446e84853.rlib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libproc_macro2-a86869977f349329.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libquote-d81e9f84ee1a7225.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/librand_core-c4fe950cf7ce1db3.rlib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libsignal_hook_registry-f3c0698a94d985bf.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libslab-55eb723ea911eb65.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libsmallvec-a174439b291683a2.rlib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libsmallvec-a174439b291683a2.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libsocket2-8c5836f536107076.rlib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libsocket2-8c5836f536107076.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libtinyvec-c88714fee1688ca6.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libtinyvec_macros-97f8e1d43e96ff3a.rlib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libunicase-5a53aef10ed11db9.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/libunicode_normalization-f00ebaf0e2cd4504.rmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/num_traits-4a887ccc39f10647.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/percent_encoding-0daffc2446e84853.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/pin_utils-b9d840e5f15f7c0a.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/proc_macro2-a86869977f349329.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/rand_core-c4fe950cf7ce1db3.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/scopeguard-80b736d9316ac380.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/signal_hook_registry-f3c0698a94d985bf.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/slab-55eb723ea911eb65.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/smallvec-a174439b291683a2.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/syn-274b00f8aa435890.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/tinyvec-c88714fee1688ca6.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/tracing_core-340bab26a3d2b0ef.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/unicase-5a53aef10ed11db9.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/auth_server/target/debug/deps/unicode_normalization-f00ebaf0e2cd4504.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/gitCheck/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/gitCheck/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/gitCheck/src/handlers.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/gitCheck/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module02/gitCheck/src/model.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/Hash_Rust/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/Hash_Rust/src/Mycomponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/benches/benchmark.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/auth/Readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/auth/middleware.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/auth/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/auth/tests.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/notification/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/payment/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/transaction/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/in.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/Chatbot/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Module02/Chatbot/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/Web/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/Web/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/Web/src/404.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/Web/src/main.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/Web/src/test.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/Web3/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/Web3/src/main.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/gitCheck/gitMap/Cargo.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/gitCheck/gitMap/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/gitCheck/gitMap/src/handlers.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/gitCheck/gitMap/src/main.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/gitCheck/gitMap/src/model.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/gitCheck/gitMapWAuth/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/gitCheck/gitMapWAuth/src/auth.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/gitCheck/gitMapWAuth/src/handlers.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/gitCheck/gitMapWAuth/src/main.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/gitCheck/gitMapWAuth/src/model.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module00/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Module00/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module01/error/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Module01/error/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module02/auth_server/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Module02/auth_server/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module02/auth_server/src/jwt.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Module02/auth_server/src/jwt.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module03/Hash_Rust/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Module03/Hash_Rust/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module03/Hash_Rust/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Module03/Hash_Rust/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module03/Hash_Rust/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Module03/Hash_Rust/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module03/Hash_Rust/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Module03/Hash_Rust/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Module03/PaymentGateway" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -235,7 +62,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:mdabir1203/Invent_Rust.git&quot;,
+    &quot;url&quot;: &quot;git@github.com:mdabir1203/Modular-Rust-Learning.git&quot;,
     &quot;accountId&quot;: &quot;61e0c33f-d407-46c4-9704-04bf3d67f3b7&quot;
   }
 }</component>
@@ -263,7 +90,7 @@
     "Cargo.Run simple_web_server2.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.rust.reset.selective.auto.import": "true",
-    "git-widget-placeholder": "Main",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/mabba/Downloads/Invent_Rust",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -271,6 +98,7 @@
     "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
     "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
     "org.rust.first.attach.projects": "true",
+    "org.rust.hideNoCargoProjectNotificationsC:/Users/mabba/Downloads/Invent_Rust/Module03/PaymentGateway/benches/benchmark.rs": "true",
     "settings.editor.selected.configurable": "language.rust.rustfmt"
   }
 }]]></component>
@@ -280,11 +108,11 @@
       <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\Web2" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module03\PaymentGateway\src\auth" />
       <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src" />
       <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src\services" />
       <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src\models" />
       <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src\handlers" />
-      <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src\routes" />
     </key>
   </component>
   <component name="RunManager">
@@ -324,6 +152,8 @@
       <updated>1721925133869</updated>
       <workItem from="1721925135036" duration="9361000" />
       <workItem from="1722332747271" duration="4964000" />
+      <workItem from="1722439578997" duration="7544000" />
+      <workItem from="1722579231079" duration="11172000" />
     </task>
     <task id="LOCAL-00001" summary="final version">
       <option name="closed" value="true" />
