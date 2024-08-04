@@ -1,13 +1,12 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fs::File;
-use std::io::{self, Write, BufReader};
+use std::io::{self, BufReader, Write};
 
 /**
  * @file main.rs
  * @brief Rusty: A simple chatbot implemented in Rust.
  */
-
 
 pub struct Chatbot {
     responses: HashMap<String, String>,
@@ -36,7 +35,7 @@ impl Chatbot {
         let file = File::open(filename)?;
         let reader = BufReader::new(file);
         let responses: Vec<UserInput> = serde_json::from_reader(reader)?;
-    
+
         for response in responses {
             self.responses.insert(response.key, response.value);
         }
@@ -88,23 +87,42 @@ mod tests {
     #[test]
     fn test_chatbot_respond() {
         let mut chatbot = Chatbot::new();
-        chatbot.responses.insert("hello".to_string(), "Hi there!".to_string());
-        chatbot.responses.insert("bye".to_string(), "Goodbye!".to_string());
+        chatbot
+            .responses
+            .insert("hello".to_string(), "Hi there!".to_string());
+        chatbot
+            .responses
+            .insert("bye".to_string(), "Goodbye!".to_string());
 
         assert_eq!(chatbot.respond("Hello"), "Hi there!");
         assert_eq!(chatbot.respond("Goodbye"), "Goodbye!");
-        assert_eq!(chatbot.respond("How are you?"), "I'm not sure how to respond to that. Could you please rephrase?");
+        assert_eq!(
+            chatbot.respond("How are you?"),
+            "I'm not sure how to respond to that. Could you please rephrase?"
+        );
     }
 
     #[test]
     fn test_chatbot_load_responses() {
         let mut chatbot = Chatbot::new();
         chatbot.load_responses("chatbot_responses.json").unwrap();
-        
+
         assert_eq!(chatbot.responses.len(), 4);
-        assert_eq!(chatbot.responses.get("hello").unwrap(), "Hi there! How can I help you?");
-        assert_eq!(chatbot.responses.get("bye").unwrap(), "Goodbye! Have a great day!");
-        assert_eq!(chatbot.responses.get("how are you").unwrap(), "I'm a bot, so I don't have feelings, but thanks for asking!");
-        assert_eq!(chatbot.responses.get("Who are you").unwrap(), "I'm YOU, you MOFO!!");
+        assert_eq!(
+            chatbot.responses.get("hello").unwrap(),
+            "Hi there! How can I help you?"
+        );
+        assert_eq!(
+            chatbot.responses.get("bye").unwrap(),
+            "Goodbye! Have a great day!"
+        );
+        assert_eq!(
+            chatbot.responses.get("how are you").unwrap(),
+            "I'm a bot, so I don't have feelings, but thanks for asking!"
+        );
+        assert_eq!(
+            chatbot.responses.get("Who are you").unwrap(),
+            "I'm YOU, you MOFO!!"
+        );
     }
 }

@@ -4,12 +4,11 @@ use warp::Reply;
 mod handlers;
 mod jwt;
 
-use handlers::{protected, login, User};
+use handlers::{login, protected, User};
 use jwt::{generate_jwt, jwt_validation};
 
 #[tokio::main]
 async fn main() {
-
     // Define the protected route
     let protected_route = warp::get()
         .and(warp::path("protected"))
@@ -29,7 +28,6 @@ async fn main() {
     warp::serve(routes).run(([127, 0, 0, 1], 5500)).await;
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -46,7 +44,7 @@ mod tests {
 
         let res = login(user).await.unwrap();
         use warp::reply::json;
-        
+
         let body = json(&res);
         assert_eq!(body.status(), StatusCode::OK);
     }
