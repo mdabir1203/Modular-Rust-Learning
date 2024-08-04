@@ -1,0 +1,24 @@
+# Ignore build artifacts
+target/
+
+# Ignore IDE-specific files
+.idea/
+*.iml
+
+# Ignore editor-specific files
+.vscode/
+
+# Ignore test files
+*.rs
+
+# Ignore documentation files
+*.md
+
+# Ignore generated files
+Cargo.lock
+
+# Ignore example files
+examples/
+
+# Ignore git-specific files
+.git/
