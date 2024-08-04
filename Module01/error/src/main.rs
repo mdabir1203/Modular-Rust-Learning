@@ -1,6 +1,6 @@
 use colored::*; // Import the colored crate
-use std::io::{self};
 use rand::Rng;
+use std::io::{self};
 
 /// Represents the possible outcomes of a guess in the number guessing game.
 #[derive(Debug, PartialEq)]
@@ -11,26 +11,31 @@ enum GuessResult {
 }
 
 /// Gets a guess from the user and returns it as a `u32`.
-/// 
+///
 /// # Returns
-/// 
+///
 /// A `u32` representing the user's guess if the input is valid, otherwise an error is returned.
 fn get_guess() -> Result<u32, String> {
     println!("{}", "Enter your guess: ".blue().bold());
     let mut guess = String::new();
-    io::stdin().read_line(&mut guess).map_err(|_| "Failed to read line".to_string())?;
-    guess.trim().parse::<u32>().map_err(|_| "Please enter a number".to_string())
+    io::stdin()
+        .read_line(&mut guess)
+        .map_err(|_| "Failed to read line".to_string())?;
+    guess
+        .trim()
+        .parse::<u32>()
+        .map_err(|_| "Please enter a number".to_string())
 }
 
 /// Compares the user's guess to the secret number and returns the result.
-/// 
+///
 /// # Arguments
-/// 
+///
 /// * `guess` - The user's guess.
 /// * `secret_number` - The secret number to be guessed.
-/// 
+///
 /// # Returns
-/// 
+///
 /// A `GuessResult` enum indicating the outcome of the comparison.
 fn compare_guess(guess: u32, secret_number: u32) -> GuessResult {
     if guess < secret_number {
@@ -43,9 +48,9 @@ fn compare_guess(guess: u32, secret_number: u32) -> GuessResult {
 }
 
 /// Prints a message based on the result of the guess.
-/// 
+///
 /// # Arguments
-/// 
+///
 /// * `result` - The result of the guess comparison.
 fn print_guess_result(result: &GuessResult) {
     match result {
