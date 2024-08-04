@@ -25,9 +25,12 @@ Navigate into the project directory:
 To run the application, execute:
 
 ## Usage
+
 Upon running the application, it attempts to display a greeting to the user. The outcome of this operation is handled gracefully:
 
 On success, it prints "Greeting displayed successfully." to the standard output.
 If an error occurs (e.g., an issue with writing to the standard output), it prints an error message to the standard error output, detailing the nature of the failure.
+
 ## Contributing
+
 Contributions to this project are welcome! Whether it's submitting bug reports, suggesting enhancements, or contributing code, all forms of collaboration are appreciated.
