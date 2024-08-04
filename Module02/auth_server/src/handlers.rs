@@ -1,7 +1,7 @@
-use warp::{Rejection, Reply, reject};
-use serde::{Deserialize};
-use serde_json::json;
 use crate::jwt::{generate_jwt, jwt_validation};
+use serde::Deserialize;
+use serde_json::json;
+use warp::{reject, Rejection, Reply};
 
 // Define the User struct
 #[derive(Deserialize)]
@@ -16,7 +16,7 @@ pub async fn login(user: User) -> Result<impl Reply, CustomError> {
         ("DragonBall", "Vegeta") => {
             let token = generate_jwt(&user.username);
             Ok(warp::reply::json(&json!({ "token": token })))
-        },
+        }
         _ => Ok(warp::reply::json(&json!("\nInvalid credentials"))),
     }
 }
