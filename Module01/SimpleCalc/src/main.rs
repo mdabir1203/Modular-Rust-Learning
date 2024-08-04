@@ -11,7 +11,9 @@ use std::io;
 /// Panics if the user input is not a valid number.
 fn read_number() -> f64 {
     let mut input = String::new();
-    io::stdin().read_line(&mut input).expect("Failed to read line");
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read line");
     input.trim().parse().expect("Please type a number!")
 }
 
@@ -37,7 +39,7 @@ fn calculate(operator: &str, num1: f64, num2: f64) -> String {
             } else {
                 "Cannot divide by zero".to_string()
             }
-        },
+        }
         _ => "Invalid operation".to_string(),
     }
 }
@@ -53,7 +55,9 @@ fn main() {
 
     println!("Choose an operation: +, -, *, /");
     let mut operator = String::new();
-    io::stdin().read_line(&mut operator).expect("Failed to read line");
+    io::stdin()
+        .read_line(&mut operator)
+        .expect("Failed to read line");
 
     let result = calculate(operator.trim(), num1, num2);
     println!("{}", result);
