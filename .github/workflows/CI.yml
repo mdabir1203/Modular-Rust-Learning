@@ -19,6 +19,9 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+      
+      - name: Make clean script executable
+        run: chmod +x clean.sh
 
       - name: Run clean script
         run: ./clean.sh
