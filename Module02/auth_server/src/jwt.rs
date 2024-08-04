@@ -1,5 +1,6 @@
 use jsonwebtoken::{encode, decode, Header, Algorithm, Validation, EncodingKey, DecodingKey};
 use serde::{Deserialize, Serialize};
+use chrono::{Utc, Duration};
 
 // Define the Claims struct for JWT
 #[derive(Serialize, Deserialize)]
@@ -8,11 +9,10 @@ struct Claims {
     exp: usize,
 }
 
-
 // Generate a JWT token
 pub fn generate_jwt(username: &str) -> String {
-    let expiration = chrono::Utc::now()
-        .checked_add_signed(chrono::Duration::seconds(60))
+    let expiration = Utc::now()
+        .checked_add_signed(Duration::seconds(60))
         .expect("valid timestamp")
         .timestamp();
 
@@ -29,4 +29,15 @@ pub fn jwt_validation(token: &str) -> bool {
     let validation = Validation::new(Algorithm::HS256);
     let token_data = decode::<Claims>(token, &DecodingKey::from_secret("secret".as_ref()), &validation);
     token_data.is_ok()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_generate_jwt() {
+        let token = generate_jwt("DragonBall");
+        assert!(jwt_validation(&token));
+    }
 }

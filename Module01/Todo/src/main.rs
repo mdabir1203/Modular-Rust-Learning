@@ -8,34 +8,25 @@ struct TodoItem {
     completed: bool,
 }
 
-fn add_todo_item(id: u32, title: String) -> TodoItem {
-    TodoItem {
-        id,
-        title,
-        completed: false,
+impl TodoItem {
+    fn new(id: u32, title: String) -> Self {
+        TodoItem {
+            id,
+            title,
+            completed: false,
+        }
+    }
+
+    fn mark_as_completed(&mut self) {
+        self.completed = true;
     }
 }
 
 fn display_todo_items(items: &[TodoItem]) {
     for item in items {
-        println!(
-            "{}: {} [{}]",
-            item.id,
-            item.title,
-            if item.completed { "x" } else { " " }
-        );
+        let completed_status = if item.completed { "x" } else { " " };
+        println!("{}: {} [{}]", item.id, item.title, completed_status);
     }
-}
-
-fn mark_as_completed(items: &mut [TodoItem], id: u32) -> Result<(), String> {
-    items
-        .iter_mut()
-        .find(|item| item.id == id)
-        .map(|item| {
-            item.completed = true;
-            Ok(())
-        })
-        .unwrap_or_else(|| Err(format!("Item with ID {} not found", id)))
 }
 
 fn read_input(prompt: &str) -> io::Result<String> {
@@ -50,6 +41,46 @@ fn parse_u32(input: &str) -> Result<u32, ParseIntError> {
     input.parse::<u32>()
 }
 
+/// Handles the "Add Todo Item" functionality.
+fn add_todo_item(todo_items: &mut Vec<TodoItem>) -> io::Result<()> {
+    let title = read_input("Enter the title: ")?;
+    let id = todo_items.len() as u32 + 1;
+    todo_items.push(TodoItem::new(id, title));
+    println!("Todo item added successfully!");
+    Ok(())
+}
+
+/// Handles the "Display Todo Items" functionality.
+fn display_todo_items_handler(todo_items: &Vec<TodoItem>) {
+    if todo_items.is_empty() {
+        println!("No todo items to display.");
+    } else {
+        display_todo_items(todo_items);
+    }
+}
+
+/// Handles the "Mark Item as Completed" functionality.
+fn mark_item_as_completed(todo_items: &mut Vec<TodoItem>) -> io::Result<()> {
+    if todo_items.is_empty() {
+        println!("No todo items to mark as completed.");
+        return Ok(());
+    }
+
+    let id_input = read_input("Enter the ID of the item to mark as completed: ")?;
+    match parse_u32(&id_input) {
+        Ok(id) => {
+            if let Some(item) = todo_items.iter_mut().find(|item| item.id == id) {
+                item.mark_as_completed();
+                println!("Item marked as completed successfully!");
+            } else {
+                println!("Item with ID {} not found", id);
+            }
+        }
+        Err(_) => println!("Invalid ID. Please enter a valid number."),
+    }
+    Ok(())
+}
+
 fn main() -> io::Result<()> {
     let mut todo_items = Vec::new();
 
@@ -62,33 +93,9 @@ fn main() -> io::Result<()> {
         let choice = read_input("Enter your choice: ")?;
 
         match choice.as_str() {
-            "1" => {
-                let title = read_input("Enter the title: ")?;
-                let id = todo_items.len() as u32 + 1;
-                todo_items.push(add_todo_item(id, title));
-                println!("Todo item added successfully!");
-            }
-            "2" => {
-                if todo_items.is_empty() {
-                    println!("No todo items to display.");
-                } else {
-                    display_todo_items(&todo_items);
-                }
-            }
-            "3" => {
-                if todo_items.is_empty() {
-                    println!("No todo items to mark as completed.");
-                } else {
-                    let id_input = read_input("Enter the ID of the item to mark as completed: ")?;
-                    match parse_u32(&id_input) {
-                        Ok(id) => match mark_as_completed(&mut todo_items, id) {
-                            Ok(()) => println!("Item marked as completed successfully!"),
-                            Err(e) => println!("Error: {}", e),
-                        },
-                        Err(_) => println!("Invalid ID. Please enter a valid number."),
-                    }
-                }
-            }
+            "1" => add_todo_item(&mut todo_items)?,
+            "2" => display_todo_items_handler(&todo_items),
+            "3" => mark_item_as_completed(&mut todo_items)?,
             "4" => {
                 println!("Exiting the program. Goodbye!");
                 break;
@@ -98,4 +105,45 @@ fn main() -> io::Result<()> {
     }
 
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_todo_item_new() {
+        let item = TodoItem::new(1, "Buy groceries".to_string());
+        assert_eq!(item.id, 1);
+        assert_eq!(item.title, "Buy groceries");
+        assert_eq!(item.completed, false);
+    }
+
+    #[test]
+    fn test_todo_item_mark_as_completed() {
+        let mut item = TodoItem::new(1, "Buy groceries".to_string());
+        item.mark_as_completed();
+        assert_eq!(item.completed, true);
+    }
+
+    #[test]
+    fn test_display_todo_items_empty() {
+        let items: Vec<TodoItem> = Vec::new();
+        display_todo_items(&items);
+    }
+
+    #[test]
+    fn test_display_todo_items() {
+        let items = vec![
+            TodoItem::new(1, "Buy groceries".to_string()),
+            TodoItem::new(2, "Walk the dog".to_string()),
+        ];
+        display_todo_items(&items);
+    }
+
+    #[test]
+    fn test_parse_u32() {
+        assert_eq!(parse_u32("42").unwrap(), 42);
+        assert!(parse_u32("abc").is_err());
+    }
 }
