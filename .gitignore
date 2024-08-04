@@ -8,12 +8,6 @@ target/
 # Ignore editor-specific files
 .vscode/
 
-# Ignore test files
-*.rs
-
-# Ignore documentation files
-*.md
-
 # Ignore generated files
 Cargo.lock
 
