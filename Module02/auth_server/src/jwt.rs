@@ -1,6 +1,6 @@
-use jsonwebtoken::{encode, decode, Header, Algorithm, Validation, EncodingKey, DecodingKey};
+use chrono::{Duration, Utc};
+use jsonwebtoken::{decode, encode, Algorithm, DecodingKey, EncodingKey, Header, Validation};
 use serde::{Deserialize, Serialize};
-use chrono::{Utc, Duration};
 
 // Define the Claims struct for JWT
 #[derive(Serialize, Deserialize)]
@@ -21,13 +21,22 @@ pub fn generate_jwt(username: &str) -> String {
         exp: expiration as usize,
     };
 
-    encode(&Header::default(), &claims, &EncodingKey::from_secret("secret".as_ref())).unwrap()
+    encode(
+        &Header::default(),
+        &claims,
+        &EncodingKey::from_secret("secret".as_ref()),
+    )
+    .unwrap()
 }
 
 // Validate the JWT token
 pub fn jwt_validation(token: &str) -> bool {
     let validation = Validation::new(Algorithm::HS256);
-    let token_data = decode::<Claims>(token, &DecodingKey::from_secret("secret".as_ref()), &validation);
+    let token_data = decode::<Claims>(
+        token,
+        &DecodingKey::from_secret("secret".as_ref()),
+        &validation,
+    );
     token_data.is_ok()
 }
 
