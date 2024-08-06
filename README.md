@@ -1,4 +1,5 @@
 # Rust Project-Based Learning Application
+![Rust](https://github.com/user-attachments/assets/2f2412bf-9ff9-4656-b64c-4f99521c59a8)
 
 
 This repository represents various Modular Projects based on Rust Programming Language. The goal is to learn various programming concepts of Rust through building Projects. The idea is inspired from @JohnCrickett Challenge. 
