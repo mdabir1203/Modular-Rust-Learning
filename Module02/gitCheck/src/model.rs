@@ -9,4 +9,3 @@ pub struct RepoInfo {
     pub stargazers_count: u32,
     pub forks_count: u32,
 }
-

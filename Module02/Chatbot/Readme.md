@@ -52,8 +52,6 @@ rusty_chatbot/
 │ └── main.rs
 └── chatbot_responses.json
 
-
-
 ### chatbot_responses.json
 
 Create a `chatbot_responses.json` file in the root directory of your project with content like this:
