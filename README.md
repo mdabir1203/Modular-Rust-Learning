@@ -35,12 +35,6 @@ A public repository of Rust projects can:
 
 By building a repository of modular Rust projects, you create a personalized, practical, and engaging learning experience that not only enhances your skills but also contributes to your professional development and community involvement.Last edited just now
 
-## Features
-
-- **Error Handling**: Demonstrates Rust's approach to error handling using the `Result` type and `match` expressions, allowing for clear and concise management of potential errors.
-- **I/O Operations**: Introduces basic input/output operations in Rust, showcasing how to interact with the standard output and handle any issues that may arise.
-- **Modular Code**: Utilizes Rust's module system to organize code into logical units, promoting better code structure and readability.
-
 ## Getting Started
 
 To get started with this project, ensure you have Rust and Cargo installed on your system. You can install both by following the instructions on the [official Rust website](https://www.rust-lang.org/tools/install).
