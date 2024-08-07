@@ -1,6 +1,6 @@
 # ConfigManager Singleton
 
-This project demonstrates the implementation of the Singleton pattern in Rust using a `ConfigManager` as a real-world example.
+This project demonstrates the Singleton pattern in Rust using a `ConfigManager` as a real-world example.
 
 ## Overview
 
@@ -10,8 +10,8 @@ The `ConfigManager` is a thread-safe, globally accessible configuration manager 
 
 - Thread-safe access to configuration
 - Lazy initialization
-- Ability to read and write configuration values
-- Persistence of configuration to a file
+- Read and write configuration values
+- Persist configuration to a file
 
 ## Mermaid Diagram
 
@@ -32,7 +32,7 @@ graph TD
     G & H & I --> J[Save Config to File]
 ```
 
-## How it works
+## How It Works
 
 1. The application requests access to the ConfigManager via the `get_config()` function.
 2. If it's the first access, a new ConfigManager is created, the configuration is loaded from a file, and the instance is stored in a static variable.
@@ -42,7 +42,7 @@ graph TD
 
 ## Usage
 
-To use the ConfigManager in your code:
+To use the ConfigManager Singleton in your code:
 
 ```rust
 let config = get_config();
