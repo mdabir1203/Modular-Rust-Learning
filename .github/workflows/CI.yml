@@ -42,6 +42,8 @@ jobs:
           - Module02/Web1
           - Module02/Web2
           # - Module03/zip_cracker
+          - DesignModule04/config_man
+          - DesignModule04/StockMarket
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -56,3 +58,4 @@ jobs:
         run: |
           cargo build --verbose
           cargo test --verbose
+    
