@@ -1,15 +1,15 @@
 # Stock Market Monitor (Observer Pattern)
 
-This project demonstrates the implementation of the Observer pattern in Rust using a Stock Market monitoring system as a real-world example.
+This markdown content has been refactored:
 
 ## Overview
 
-The Stock Market Monitor allows multiple observers (displays and alert systems) to receive updates whenever stock prices change. This showcases how the Observer pattern can be used to implement a publish-subscribe model.
+This project showcases the implementation of the Observer pattern in Rust using a Stock Market monitoring system as an example.
 
 ## Features
 
 - Real-time updates of stock prices to multiple observers
-- Different types of observers (displays and alert systems)
+- Support for different types of observers (displays and alert systems)
 - Easy addition of new observers
 
 ## Mermaid Diagram

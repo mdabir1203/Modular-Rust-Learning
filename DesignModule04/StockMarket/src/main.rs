@@ -1,27 +1,27 @@
 use std::collections::HashMap;
-use std::cell::RefCell;
 use std::rc::Rc;
+use std::borrow::Cow;
 
 // Observer trait
 trait StockObserver {
-    fn update(&self, symbol: &str, price: f64);
+    fn update(&self, symbol: Cow<str>, price: f64);
 }
 
 // Subject (Observable)
 struct StockMarket {
     prices: HashMap<String, f64>,
-    observers: Vec<Rc<RefCell<dyn StockObserver>>>,
+    observers: Vec<Rc<dyn StockObserver>>,
 }
 
 impl StockMarket {
     fn new() -> Self {
         StockMarket {
-            prices: HashMap::new(),
-            observers: Vec::new(),
+            prices: HashMap::with_capacity(10),
+            observers: Vec::with_capacity(10),
         }
     }
 
-    fn add_observer(&mut self, observer: Rc<RefCell<dyn StockObserver>>) {
+    fn add_observer(&mut self, observer: Rc<dyn StockObserver>) {
         self.observers.push(observer);
     }
 
@@ -31,8 +31,9 @@ impl StockMarket {
     }
 
     fn notify_observers(&self, symbol: &str, price: f64) {
+        let symbol = Cow::Borrowed(symbol);
         for observer in &self.observers {
-            observer.borrow().update(symbol, price);
+            observer.update(symbol.clone(), price);
         }
     }
 }
@@ -43,7 +44,7 @@ struct PriceDisplay {
 }
 
 impl StockObserver for PriceDisplay {
-    fn update(&self, symbol: &str, price: f64) {
+    fn update(&self, symbol: Cow<str>, price: f64) {
         println!("{}: {} stock updated to ${:.2}", self.name, symbol, price);
     }
 }
@@ -53,7 +54,7 @@ struct AlertSystem {
 }
 
 impl StockObserver for AlertSystem {
-    fn update(&self, symbol: &str, price: f64) {
+    fn update(&self, symbol: Cow<str>, price: f64) {
         if price > self.threshold {
             println!("ALERT: {} stock price ${:.2} exceeds threshold ${:.2}", symbol, price, self.threshold);
         }
@@ -63,15 +64,15 @@ impl StockObserver for AlertSystem {
 fn main() {
     let mut stock_market = StockMarket::new();
 
-    let display1 = Rc::new(RefCell::new(PriceDisplay {
+    let display1 = Rc::new(PriceDisplay {
         name: String::from("Display 1"),
-    }));
-    let display2 = Rc::new(RefCell::new(PriceDisplay {
+    });
+    let display2 = Rc::new(PriceDisplay {
         name: String::from("Display 2"),
-    }));
-    let alert_system = Rc::new(RefCell::new(AlertSystem {
+    });
+    let alert_system = Rc::new(AlertSystem {
         threshold: 100.0,
-    }));
+    });
 
     stock_market.add_observer(display1);
     stock_market.add_observer(display2);
@@ -82,4 +83,76 @@ fn main() {
     stock_market.set_price("GOOGL", 1330.0);
     stock_market.set_price("MSFT", 95.0);
     stock_market.set_price("MSFT", 120.0);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_stock_market() {
+        let mut stock_market = StockMarket::new();
+
+        let display1 = Rc::new(PriceDisplay {
+            name: String::from("Display 1"),
+        });
+        let display2 = Rc::new(PriceDisplay {
+            name: String::from("Display 2"),
+        });
+        let alert_system = Rc::new(AlertSystem {
+            threshold: 100.0,
+        });
+
+        stock_market.add_observer(display1);
+        stock_market.add_observer(display2);
+        stock_market.add_observer(alert_system);
+
+        stock_market.set_price("AAPL", 15.0);
+        stock_market.set_price("GOOGL", 1330.0);
+        stock_market.set_price("MSFT", 95.0);
+        stock_market.set_price("MSFT", 120.0);
+    }
+
+    #[test]
+    fn test_price_display() {
+        let display = PriceDisplay {
+            name: String::from("Display 1"),
+        };
+        display.update(Cow::Borrowed("AAPL"), 15.0);
+    }
+
+    #[test]
+    fn test_alert_system() {
+        let alert = AlertSystem {
+            threshold: 100.0,
+        };
+        alert.update(Cow::Borrowed("AAPL"), 105.0);
+    }
+
+    #[test]
+    fn test_stock_observer() {
+        let display = PriceDisplay {
+            name: String::from("Display 1"),
+        };
+        let observer: &dyn StockObserver = &display;
+        observer.update(Cow::Borrowed("AAPL"), 15.0);
+    }
+
+    #[test]
+    fn test_stock_observer_vec() {
+        let display1 = Rc::new(PriceDisplay {
+            name: String::from("Display 1"),
+        });
+        let display2 = Rc::new(PriceDisplay {
+            name: String::from("Display 2"),
+        });
+
+        let mut observers: Vec<Rc<dyn StockObserver>> = Vec::new();
+        observers.push(display1);
+        observers.push(display2);
+
+        for observer in &observers {
+            observer.update(Cow::Borrowed("AAPL"), 15.0);
+        }
+    }
 }
