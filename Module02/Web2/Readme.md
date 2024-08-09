@@ -56,6 +56,11 @@ cargo test
 
 The tests cover the server routes and error handling.
 
+## Siege Test Result 
+
+![alt text](image.png)
+
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

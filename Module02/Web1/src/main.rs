@@ -21,10 +21,10 @@ mod tests {
     #[actix_rt::test]
     async fn test_intro() {
         let mut app = test::init_service(App::new().service(intro)).await;
-
+        println!("server running");
         let req = test::TestRequest::get().uri("/").to_request();
         let resp = test::call_service(&mut app, req).await;
-
+     
         assert_eq!(resp.status(), StatusCode::OK);
     }
 }

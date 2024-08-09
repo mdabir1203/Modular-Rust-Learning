@@ -15,12 +15,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70258e2e-935e-4239-8f5c-9cad9ccd284d" name="Changes" comment="added gitignore">
-      <change afterPath="$PROJECT_DIR$/DesignModule04/PaymentProcessor/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DesignModule04/PaymentProcessor/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DesignModule04/config_man/config.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DesignModule04/Observer.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DesignModule04/Singleton.rs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,11 +87,11 @@
       <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\Web2" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mabba\Downloads\Rust_Modular\DesignModule04\PaymentProcessor\src" />
+      <recent name="C:\Users\mabba\Downloads\Rust_Modular\DesignModule04\PaymentProcessor\src\factorys" />
       <recent name="C:\Users\mabba\Downloads\Rust_Modular\DesignModule04\StockMarket" />
       <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module03\PaymentGateway\src\auth" />
       <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src" />
-      <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src\services" />
-      <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src\models" />
     </key>
   </component>
   <component name="RunManager">

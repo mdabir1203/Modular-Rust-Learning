@@ -23,6 +23,7 @@ async fn echo(info: web::Json<Info>) -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    println!("Server starts running .... ");
     HttpServer::new(|| App::new().service(intro).service(greet).service(echo))
         .bind("127.0.0.1:5500")?
         .run()
