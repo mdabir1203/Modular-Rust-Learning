@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/Module00/Cargo.toml" />
+    <cargoProject FILE="$PROJECT_DIR$/Module01/error/Cargo.toml" />
+    <cargoProject FILE="$PROJECT_DIR$/Module01/SimpleCalc/Cargo.toml" />
+    <cargoProject FILE="$PROJECT_DIR$/Module01/Todo/Cargo.toml" />
+    <cargoProject FILE="$PROJECT_DIR$/Module02/Web1/Cargo.toml" />
+    <cargoProject FILE="$PROJECT_DIR$/Module02/Web2/Cargo.toml" />
+    <cargoProject FILE="$PROJECT_DIR$/Module02/auth_server/src/filters/Cargo.toml" />
+    <cargoProject FILE="$PROJECT_DIR$/Module02/auth_server/src/d/Cargo.toml" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="70258e2e-935e-4239-8f5c-9cad9ccd284d" name="Changes" comment="added gitignore">
+      <change afterPath="$PROJECT_DIR$/Module03/Hash_Rust/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/Hash_Rust/src/Mycomponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/benches/benchmark.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/auth/Readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/auth/middleware.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/auth/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/auth/tests.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/notification/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/payment/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/transaction/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/in.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module00/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Module00/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module01/error/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Module01/error/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module02/auth_server/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Module02/auth_server/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module02/auth_server/src/jwt.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Module02/auth_server/src/jwt.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module03/Hash_Rust/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Module03/Hash_Rust/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module03/Hash_Rust/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Module03/Hash_Rust/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module03/Hash_Rust/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Module03/Hash_Rust/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module03/Hash_Rust/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Module03/Hash_Rust/src/main.rs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Module03/PaymentGateway" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;mdabir1203&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:mdabir1203/Modular-Rust-Learning.git&quot;,
+    &quot;accountId&quot;: &quot;61e0c33f-d407-46c4-9704-04bf3d67f3b7&quot;
+  }
+}</component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="0s5d2bnf" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2jkJRbFzu66VUtJibT9sqqb1vtp" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Cargo.Run simple_web_server2.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.rust.reset.selective.auto.import": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/mabba/Downloads/Invent_Rust",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
+    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
+    "org.rust.first.attach.projects": "true",
+    "org.rust.hideNoCargoProjectNotificationsC:/Users/mabba/Downloads/Invent_Rust/Module03/PaymentGateway/benches/benchmark.rs": "true",
+    "settings.editor.selected.configurable": "language.rust.rustfmt"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\Web3\src" />
+      <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\Web2" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module03\PaymentGateway\src\auth" />
+      <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src" />
+      <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src\services" />
+      <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src\models" />
+      <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src\handlers" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Run simple_web_server2" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="run --package simple_web_server2 --bin simple_web_server2" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$/Module02/Web2" />
+      <envs />
+      <option name="emulateTerminal" value="true" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="buildTarget" value="REMOTE" />
+      <option name="backtrace" value="SHORT" />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Cargo.Run simple_web_server2" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="//wsl.localhost/Ubuntu/root/.cargo/bin" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="70258e2e-935e-4239-8f5c-9cad9ccd284d" name="Changes" comment="" />
+      <created>1721925133869</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1721925133869</updated>
+      <workItem from="1721925135036" duration="9361000" />
+      <workItem from="1722332747271" duration="4964000" />
+      <workItem from="1722439578997" duration="7544000" />
+      <workItem from="1722579231079" duration="11172000" />
+    </task>
+    <task id="LOCAL-00001" summary="final version">
+      <option name="closed" value="true" />
+      <created>1721925587870</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1721925587871</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added gitignore">
+      <option name="closed" value="true" />
+      <created>1721927051929</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1721927051929</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="final version" />
+    <MESSAGE value="added gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="added gitignore" />
+  </component>
+</project>

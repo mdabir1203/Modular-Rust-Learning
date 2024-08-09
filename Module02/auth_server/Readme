@@ -1,0 +1,72 @@
+# Modular Rust Learning: Authentication Server
+
+This repository contains the code for an authentication server implemented in Rust. The server is built using the Warp web framework and utilizes JSON Web Tokens (JWT) for authentication.
+
+## Table of Contents
+
+- [Architecture](#architecture)
+- [Getting Started](#getting-started)
+- [Testing the Endpoints](#testing-the-endpoints)
+- [Conclusion](#conclusion)
+
+## Architecture
+
+The application is divided into three modules:
+
+1. `jwt`: Contains JWT related logic such as token generation, validation, and claims extraction.
+2. `auth`: Handles authentication logic including user login and registration.
+3. `server`: Runs the web server and handles routing.
+
+The modules are designed to minimize dependencies and promote reusability. Dependency injection is used to pass dependencies between modules.
+
+## Getting Started
+
+To get started with the authentication server, follow these steps:
+
+1. Clone the repository:
+
+    ```sh
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
+
+2. Install dependencies:
+
+    ```sh
+    cargo build
+    ```
+
+3. Run the server:
+
+    ```sh
+    cargo run
+    ```
+
+## Testing the Endpoints
+
+To test the authentication server endpoints, you can use `curl` or any other HTTP client.
+
+### Login Endpoint
+
+Send a POST request to the login endpoint with a JSON body containing the username and password:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "password"}' http://127.0.0.1:3030/login
+```
+
+If the credentials are correct, you will receive a JSON response with a JWT token.
+
+### Protected Endpoint
+
+Send a GET request to the protected endpoint with the Authorization header containing the JWT token received from the login endpoint:
+
+```bash
+TOKEN="your_jwt_token"  # Replace with the actual token
+curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:3030/protected
+```
+
+If the token is valid, you will receive the response "Access granted". If the token is invalid or missing, you will receive the response "Forbidden".
+
+## Conclusion
+
+By completing this project, you will gain a solid understanding of building web servers in Rust using the Warp framework and JWT for authentication. This project will also reinforce your knowledge of Rust's syntax and fundamental principles, preparing you for more advanced Rust programming tasks.

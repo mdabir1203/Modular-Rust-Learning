@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      
+      - name: Make clean script executable
+        run: chmod +x clean.sh
+
+      - name: Run clean script
+        run: ./clean.sh
+
+  build-and-test:
+    needs: clean
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module:
+          - Module00
+          - Module01/error
+          - Module01/SimpleCalc
+          - Module01/Todo
+          # - Module02/auth_server
+          - Module02/Chatbot
+          - Module02/gitCheck
+          - Module02/Web1
+          - Module02/Web2
+          # - Module03/zip_cracker
+          - DesignModule04/config_man
+          - DesignModule04/StockMarket
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Build and test
+        working-directory: ${{ matrix.module }}
+        run: |
+          cargo build --verbose
+          cargo test --verbose
+    

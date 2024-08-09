@@ -1,0 +1,1 @@
+Standard Cli Program in Rust

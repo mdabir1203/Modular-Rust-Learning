@@ -1,0 +1,164 @@
+<changelist name="Uncommitted_changes_before_rebase_[Changes]" date="1721925354241" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before rebase [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/release/deps/Rust_Principles-55c0d8e7fa2db150.d" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/release/.cargo-lock" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module02/Web/target/release/.fingerprint/simple_web_server-461a27b7e42e2019/invoked.timestamp" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module02/Web/target/release/.cargo-lock" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/4qhikkws730krn8k.o" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/115goqeho5v1tzf3.o" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/deps/Rust_Principles-8620aaf0c8450501" />
+    <option name="AFTER_PATH" value="Module00/target/debug/deps/Rust_Principles-8620aaf0c8450501" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/Rust_Principles-8620aaf0c8450501" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/5a3plqr9tccl8vu1.o" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/dp6dyrtua39415l.o" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/release/.fingerprint/Rust_Principles-55c0d8e7fa2db150/dep-bin-Rust_Principles" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/3vq40wpozkhwia13.o" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/release/.fingerprint/Rust_Principles-55c0d8e7fa2db150/bin-Rust_Principles" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module02/Web/target/release/deps/simple_web_server-461a27b7e42e2019" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module02/Web/target/release/.fingerprint/simple_web_server-461a27b7e42e2019/bin-simple_web_server" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/Rust_Principles" />
+    <option name="AFTER_PATH" value="Module00/target/debug/Rust_Principles" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/Rust_Principles" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/query-cache.bin" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/release/.fingerprint/Rust_Principles-55c0d8e7fa2db150/invoked.timestamp" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/4n9f4quuq5jfm2j5.o" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/29aacpy90ef45zds.o" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/work-products.bin" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/release/deps/Rust_Principles-55c0d8e7fa2db150" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/2ecgm81xvb9gy10o.o" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/release/Rust_Principles.d" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module02/Web/target/release/deps/simple_web_server-461a27b7e42e2019.d" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module02/Web/target/release/.fingerprint/simple_web_server-461a27b7e42e2019/dep-bin-simple_web_server" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/4eu5gwulklxzmg6r.o" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns.lock" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/3iopdr2jjc1xk6dn.o" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/release/Rust_Principles" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/dep-graph.bin" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/12bant4gv1d00lkw.o" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Module00/target/debug/incremental/Rust_Principles-2puylmw7vqdrx/s-gy2g7jtulg-shwmns-5bbzesrh6oioisiih7g92v5gx/1k0yde4i39gsxe39.o" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+</changelist>

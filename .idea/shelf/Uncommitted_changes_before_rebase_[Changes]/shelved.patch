@@ -1,0 +1,930 @@
+Index: Module02/Web/target/CACHEDIR.TAG
+===================================================================
+diff --git a/Module02/Web/target/CACHEDIR.TAG b/Module02/Web/target/CACHEDIR.TAG
+deleted file mode 100644
+--- a/Module02/Web/target/CACHEDIR.TAG	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,3 +0,0 @@
+-Signature: 8a477f597d28d172789f06886806bc55
+-# This file is a cache directory tag created by cargo.
+-# For information about cache directory tags see https://bford.info/cachedir/
+Index: Module02/Web/target/release/.fingerprint/simple_web_server-461a27b7e42e2019/bin-simple_web_server.json
+===================================================================
+diff --git a/Module02/Web/target/release/.fingerprint/simple_web_server-461a27b7e42e2019/bin-simple_web_server.json b/Module02/Web/target/release/.fingerprint/simple_web_server-461a27b7e42e2019/bin-simple_web_server.json
+deleted file mode 100644
+--- a/Module02/Web/target/release/.fingerprint/simple_web_server-461a27b7e42e2019/bin-simple_web_server.json	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,1 +0,0 @@
+-{"rustc":1059629350237521597,"features":"[]","declared_features":"","target":62847119606040428,"profile":18277820415669657429,"path":1684066648322511884,"deps":[],"local":[{"CheckDepInfo":{"dep_info":"release/.fingerprint/simple_web_server-461a27b7e42e2019/dep-bin-simple_web_server"}}],"rustflags":[],"metadata":7797948686568424061,"config":2202906307356721367,"compile_kind":0}
+\ No newline at end of file
+Index: Module02/Web/src/main.rs
+===================================================================
+diff --git a/Module02/Web/src/main.rs b/Module02/Web/src/main.rs
+deleted file mode 100644
+--- a/Module02/Web/src/main.rs	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,107 +0,0 @@
+-use std::collections::HashMap;
+-use std::sync::Arc;
+-use tokio::sync::{Mutex, RwLock};
+-use thiserror::Error;
+-use tokio_tungstenite::tungstenite::Error as WsError;
+-use tokio::net::{TcpListener, TcpStream};
+-use tokio_tungstenite::accept_async;
+-use tokio_tungstenite::WebSocketStream;
+-use futures_util::{StreamExt, SinkExt};
+-use uuid::Uuid;
+-
+-#[derive(Error, Debug)]
+-pub enum MyError {
+-    #[error("WebSocket error: {0}")]
+-    WebSocketError(#[from] WsError),
+-    
+-    #[error("IO error: {0}")]
+-    IoError(#[from] std::io::Error),
+-    
+-    #[error("Message processing error: {0}")]
+-    MessageProcessingError(String),
+-    
+-    #[error("Unexpected disconnection")]
+-    UnexpectedDisconnection,
+-}
+-
+-type Peers = Arc<RwLock<HashMap<String, Arc<Mutex<WebSocketStream<TcpStream>>>>>>;
+-
+-async fn handle_connection(username: String, websocket: WebSocketStream<TcpStream>, peers: Peers) -> Result<(), MyError> {
+-    let mut write_guard = peers.write().await;
+-    write_guard.insert(username.clone(), Arc::new(Mutex::new(websocket)));
+-    println!("User {} connected.", username);
+-    Ok(())
+-}
+-
+-async fn process_messages(peers: Peers) -> Result<(), MyError> {
+-    let read_guard = peers.read().await;
+-    for (username, websocket) in read_guard.iter() {
+-        let websocket = Arc::clone(websocket);
+-        let username = username.clone();
+-        tokio::spawn(async move {
+-            if let Err(e) = process_single_message(&username, websocket).await {
+-                eprintln!("Error processing message for {}: {:?}", username, e);
+-            }
+-        });
+-    }
+-    Ok(())
+-}
+-
+-async fn process_single_message(username: &String, websocket: Arc<Mutex<WebSocketStream<TcpStream>>>) -> Result<(), MyError> {
+-    let mut websocket = websocket.lock().await;
+-    while let Some(message) = websocket.next().await {
+-        match message {
+-            Ok(msg) => {
+-                println!("Received a message from {}: {:?}", username, msg);
+-                websocket.send(msg).await?;
+-            }
+-            Err(e) => {
+-                eprintln!("Error receiving message from {}: {:?}", username, e);
+-                return Err(MyError::MessageProcessingError(format!("Error receiving message: {:?}", e)));
+-            }
+-        }
+-    }
+-    Ok(())
+-}
+-
+-async fn handle_disconnection(username: String, peers: Peers) -> Result<(), MyError> {
+-    let mut write_guard = peers.write().await;
+-    write_guard.remove(&username);
+-    println!("User {} disconnected.", username);
+-    Ok(())
+-}
+-
+-#[tokio::main]
+-async fn main() -> Result<(), MyError> {
+-    let peers: Peers = Arc::new(RwLock::new(HashMap::new()));
+-    let listener = TcpListener::bind("127.0.0.1:8080").await?;
+-
+-    println!("Server listening on 127.0.0.1:8080");
+-
+-    loop {
+-        let (stream, _) = listener.accept().await?;
+-        let peers = Arc::clone(&peers);
+-
+-        tokio::spawn(async move {
+-            match accept_async(stream).await {
+-                Ok(websocket) => {
+-                    let username = Uuid::new_v4().to_string();
+-                    if let Err(e) = handle_connection(username.clone(), websocket, peers.clone()).await {
+-                        eprintln!("Error handling connection for {}: {:?}", username, e);
+-                    }
+-
+-                    // Start processing messages for the new connection
+-                    if let Err(e) = process_messages(peers.clone()).await {
+-                        eprintln!("Error processing messages: {:?}", e);
+-                    }
+-
+-                    // Handle disconnection
+-                    if let Err(e) = handle_disconnection(username, peers.clone()).await {
+-                        eprintln!("Error handling disconnection: {:?}", e);
+-                    }
+-                }
+-                Err(e) => eprintln!("Error accepting connection: {:?}", e),
+-            }
+-        });
+-    }
+-}
+Index: Module00/target/release/.fingerprint/Rust_Principles-55c0d8e7fa2db150/bin-Rust_Principles.json
+===================================================================
+diff --git a/Module00/target/release/.fingerprint/Rust_Principles-55c0d8e7fa2db150/bin-Rust_Principles.json b/Module00/target/release/.fingerprint/Rust_Principles-55c0d8e7fa2db150/bin-Rust_Principles.json
+deleted file mode 100644
+--- a/Module00/target/release/.fingerprint/Rust_Principles-55c0d8e7fa2db150/bin-Rust_Principles.json	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,1 +0,0 @@
+-{"rustc":1059629350237521597,"features":"[]","declared_features":"","target":17703202271471497033,"profile":18277820415669657429,"path":1684066648322511884,"deps":[],"local":[{"CheckDepInfo":{"dep_info":"release/.fingerprint/Rust_Principles-55c0d8e7fa2db150/dep-bin-Rust_Principles"}}],"rustflags":[],"metadata":7797948686568424061,"config":2202906307356721367,"compile_kind":0}
+\ No newline at end of file
+Index: Module02/Web/src/404.html
+===================================================================
+diff --git a/Module02/Web/src/404.html b/Module02/Web/src/404.html
+deleted file mode 100644
+--- a/Module02/Web/src/404.html	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,22 +0,0 @@
+-<!DOCTYPE html>
+-<html lang="en">
+-<head>
+-    <meta charset="UTF-8">
+-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+-    <title>404 Not Found</title>
+-    <style>
+-        body {
+-            font-family: Arial, sans-serif;
+-            background-color: #f0f0f0;
+-            color: #333;
+-        }
+-        h1 {
+-            color: #ff6347;
+-        }
+-    </style>
+-</head>
+-<body>
+-    <h1>404 Not Found</h1>
+-    <p>Sorry, the page you are looking for does not exist.</p>
+-</body>
+-</html>
+Index: Module02/Web/target/.rustc_info.json
+===================================================================
+diff --git a/Module02/Web/target/.rustc_info.json b/Module02/Web/target/.rustc_info.json
+deleted file mode 100644
+--- a/Module02/Web/target/.rustc_info.json	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,1 +0,0 @@
+-{"rustc_fingerprint":10597996786871931460,"outputs":{"15729799797837862367":{"success":true,"status":"","code":0,"stdout":"___\nlib___.rlib\nlib___.so\nlib___.so\nlib___.a\nlib___.so\n/root/.rustup/toolchains/stable-x86_64-unknown-linux-gnu\noff\npacked\nunpacked\n___\ndebug_assertions\npanic=\"unwind\"\nproc_macro\ntarget_abi=\"\"\ntarget_arch=\"x86_64\"\ntarget_endian=\"little\"\ntarget_env=\"gnu\"\ntarget_family=\"unix\"\ntarget_feature=\"fxsr\"\ntarget_feature=\"sse\"\ntarget_feature=\"sse2\"\ntarget_has_atomic=\"16\"\ntarget_has_atomic=\"32\"\ntarget_has_atomic=\"64\"\ntarget_has_atomic=\"8\"\ntarget_has_atomic=\"ptr\"\ntarget_os=\"linux\"\ntarget_pointer_width=\"64\"\ntarget_vendor=\"unknown\"\nunix\n","stderr":""},"4614504638168534921":{"success":true,"status":"","code":0,"stdout":"rustc 1.78.0 (9b00956e5 2024-04-29)\nbinary: rustc\ncommit-hash: 9b00956e56009bab2aa15d7bff10916599e3d6d6\ncommit-date: 2024-04-29\nhost: x86_64-unknown-linux-gnu\nrelease: 1.78.0\nLLVM version: 18.1.2\n","stderr":""}},"successes":{}}
+\ No newline at end of file
+Index: Module_un/Webserver/src/main.rs
+===================================================================
+diff --git a/Module_un/Webserver/src/main.rs b/Module_un/Webserver/src/main.rs
+deleted file mode 100644
+--- a/Module_un/Webserver/src/main.rs	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,34 +0,0 @@
+-extern crate iron;
+-#[macro_use] extern crate mime; // directives to use macro
+-extern crate router;
+-
+-use router::Router;
+-use iron::prelude::*; // makes all module available
+-use iron::status;
+-
+-fn main() {
+-    println!("Running on http://localhost:5050..");
+-    Iron::new(get_form).http("localhost:5050").unwrap();
+-}
+-
+-// takes a mutable request
+-fn get_form(_req: &mut Request) -> IronResult<Response> {
+-    let mut response = Response::new();
+-
+-    response.set_mut(status::Ok);
+-    response.set_mut(mime!(Text/Html; Charset=Utf8));
+-
+-    response.set_mut(status::Ok);
+-    response.set_mut(mime!(Text/Html; Charset=Utf8));
+-    response.set_mut(r#"
+-        <title>Web Calculator"</title>
+-        <form action="/gcd" method="post">
+-        <input type="text" name="n"/>
+-        <input type="text" name="n"/>
+-        <button type="submit">Compute Server Points</button
+-        </form
+-        "#);
+-        println!("what is going on");
+-        Ok(response) // specify the return value
+-        
+-}
+\ No newline at end of file
+Index: Module02/Web/.gitignore
+===================================================================
+diff --git a/Module02/Web/.gitignore b/Module02/Web/.gitignore
+deleted file mode 100644
+--- a/Module02/Web/.gitignore	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,3 +0,0 @@
+-Cargo.lock
+-node_modules
+-target
+\ No newline at end of file
+Index: Module_un/Conccurency_Mandel/src/main.rs
+===================================================================
+diff --git a/Module_un/Conccurency_Mandel/src/main.rs b/Module_un/Conccurency_Mandel/src/main.rs
+deleted file mode 100644
+--- a/Module_un/Conccurency_Mandel/src/main.rs	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,29 +0,0 @@
+-extern crate iron;
+-#[macro_use] extern crate mime; // directives to use macro
+-
+-use iron::prelude::*; // makes all module available
+-use iron::status;
+-
+-fn main() {
+-    println!("Running on http://localhost:5050..");
+-    Iron::new(get_form).http("localhost:5050").unwrap();
+-}
+-
+-fn get_form(_req: &mut Request) -> IronResult<Response> {
+-    let mut response = Response::new();
+-
+-    response.set_mut(status::Ok);
+-    response.set_mut(mime!(Text/Html; Charset=Utf8));
+-
+-    response.set_mut(status::Ok);
+-    response.set_mut(mime!(Text/Html; Charset=Utf8));
+-    response.set_mut(r#"
+-        <title>Web Calculator"</title>
+-        <form action="/gcd" method="post">
+-        <input type="text" name="n"/>
+-        <input type="text" name="n"/>
+-        <button type="submit">Compute Server Points</button
+-        </form
+-        "#);
+-        Ok(response)
+-}
+\ No newline at end of file
+Index: Module_un/Webserver/Cargo.toml
+===================================================================
+diff --git a/Module_un/Webserver/Cargo.toml b/Module_un/Webserver/Cargo.toml
+deleted file mode 100644
+--- a/Module_un/Webserver/Cargo.toml	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,10 +0,0 @@
+-[package]
+-name = "mandelbrot"
+-version = "0.1.0"
+-
+-
+-[dependencies]
+- iron = "0.5.1"
+- mime = "0.2.3"
+- router = "0.5.1"
+- urlencoded = "0.5.0"
+\ No newline at end of file
+Index: Module_un/Webserver/Cargo.lock
+===================================================================
+diff --git a/Module_un/Webserver/Cargo.lock b/Module_un/Webserver/Cargo.lock
+deleted file mode 100644
+--- a/Module_un/Webserver/Cargo.lock	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,430 +0,0 @@
+-# This file is automatically @generated by Cargo.
+-# It is not intended for manual editing.
+-version = 3
+-
+-[[package]]
+-name = "autocfg"
+-version = "1.3.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "0c4b4d0bd25bd0b74681c0ad21497610ce1b7c91b1022cd21c80c6fbdd9476b0"
+-
+-[[package]]
+-name = "base64"
+-version = "0.9.3"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "489d6c0ed21b11d038c31b6ceccca973e65d73ba3bd8ecb9a2babf5546164643"
+-dependencies = [
+- "byteorder",
+- "safemem",
+-]
+-
+-[[package]]
+-name = "bodyparser"
+-version = "0.5.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "6928e817538b74a73d1dd6e9a942a2a35c632a597b6bb14fd009480f859a6bf5"
+-dependencies = [
+- "iron",
+- "persistent",
+- "plugin",
+- "serde",
+- "serde_json",
+-]
+-
+-[[package]]
+-name = "byteorder"
+-version = "1.5.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b"
+-
+-[[package]]
+-name = "conduit-mime-types"
+-version = "0.7.3"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "95ca30253581af809925ef68c2641cc140d6183f43e12e0af4992d53768bd7b8"
+-dependencies = [
+- "rustc-serialize",
+-]
+-
+-[[package]]
+-name = "dtoa"
+-version = "0.2.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "0dd841b58510c9618291ffa448da2e4e0f699d984d436122372f446dae62263d"
+-
+-[[package]]
+-name = "error"
+-version = "0.1.9"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "a6e606f14042bb87cc02ef6a14db6c90ab92ed6f62d87e69377bc759fd7987cc"
+-dependencies = [
+- "traitobject",
+- "typeable",
+-]
+-
+-[[package]]
+-name = "hermit-abi"
+-version = "0.3.9"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "d231dfb89cfffdbc30e7fc41579ed6066ad03abda9e567ccafae602b97ec5024"
+-
+-[[package]]
+-name = "httparse"
+-version = "1.9.4"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "0fcc0b4a115bf80b728eb8ea024ad5bd707b615bfed49e0665b6e0f86fd082d9"
+-
+-[[package]]
+-name = "hyper"
+-version = "0.10.16"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "0a0652d9a2609a968c14be1a9ea00bf4b1d64e2e1f53a1b51b6fff3a6e829273"
+-dependencies = [
+- "base64",
+- "httparse",
+- "language-tags",
+- "log 0.3.9",
+- "mime",
+- "num_cpus",
+- "time",
+- "traitobject",
+- "typeable",
+- "unicase",
+- "url",
+-]
+-
+-[[package]]
+-name = "idna"
+-version = "0.1.5"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "38f09e0f0b1fb55fdee1f17470ad800da77af5186a1a76c026b679358b7e844e"
+-dependencies = [
+- "matches",
+- "unicode-bidi",
+- "unicode-normalization",
+-]
+-
+-[[package]]
+-name = "iron"
+-version = "0.5.1"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "2440ae846e7a8c7f9b401db8f6e31b4ea5e7d3688b91761337da7e054520c75b"
+-dependencies = [
+- "conduit-mime-types",
+- "error",
+- "hyper",
+- "lazy_static",
+- "log 0.3.9",
+- "modifier",
+- "num_cpus",
+- "plugin",
+- "typemap",
+- "url",
+-]
+-
+-[[package]]
+-name = "itoa"
+-version = "0.1.1"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "ae3088ea4baeceb0284ee9eea42f591226e6beaecf65373e41b38d95a1b8e7a1"
+-
+-[[package]]
+-name = "language-tags"
+-version = "0.2.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "a91d884b6667cd606bb5a69aa0c99ba811a115fc68915e7056ec08a46e93199a"
+-
+-[[package]]
+-name = "lazy_static"
+-version = "0.2.11"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "76f033c7ad61445c5b347c7382dd1237847eb1bce590fe50365dcb33d546be73"
+-
+-[[package]]
+-name = "libc"
+-version = "0.2.155"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "97b3888a4aecf77e811145cadf6eef5901f4782c53886191b2f693f24761847c"
+-
+-[[package]]
+-name = "log"
+-version = "0.3.9"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "e19e8d5c34a3e0e2223db8e060f9e8264aeeb5c5fc64a4ee9965c062211c024b"
+-dependencies = [
+- "log 0.4.22",
+-]
+-
+-[[package]]
+-name = "log"
+-version = "0.4.22"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "a7a70ba024b9dc04c27ea2f0c0548feb474ec5c54bba33a7f72f873a39d07b24"
+-
+-[[package]]
+-name = "mandelbrot"
+-version = "0.1.0"
+-dependencies = [
+- "iron",
+- "mime",
+- "router",
+- "urlencoded",
+-]
+-
+-[[package]]
+-name = "matches"
+-version = "0.1.10"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "2532096657941c2fea9c289d370a250971c689d4f143798ff67113ec042024a5"
+-
+-[[package]]
+-name = "mime"
+-version = "0.2.6"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "ba626b8a6de5da682e1caa06bdb42a335aee5a84db8e5046a3e8ab17ba0a3ae0"
+-dependencies = [
+- "log 0.3.9",
+-]
+-
+-[[package]]
+-name = "modifier"
+-version = "0.1.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "41f5c9112cb662acd3b204077e0de5bc66305fa8df65c8019d5adb10e9ab6e58"
+-
+-[[package]]
+-name = "num-traits"
+-version = "0.1.43"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "92e5113e9fd4cc14ded8e499429f396a20f98c772a47cc8622a736e1ec843c31"
+-dependencies = [
+- "num-traits 0.2.19",
+-]
+-
+-[[package]]
+-name = "num-traits"
+-version = "0.2.19"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "071dfc062690e90b734c0b2273ce72ad0ffa95f0c74596bc250dcfd960262841"
+-dependencies = [
+- "autocfg",
+-]
+-
+-[[package]]
+-name = "num_cpus"
+-version = "1.16.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "4161fcb6d602d4d2081af7c3a45852d875a03dd337a6bfdd6e06407b61342a43"
+-dependencies = [
+- "hermit-abi",
+- "libc",
+-]
+-
+-[[package]]
+-name = "percent-encoding"
+-version = "1.0.1"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "31010dd2e1ac33d5b46a5b413495239882813e0369f8ed8a5e266f173602f831"
+-
+-[[package]]
+-name = "persistent"
+-version = "0.3.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "d4c9c94f2ef72dc272c6bcc8157ccf2bc7da14f4c58c69059ac2fc48492d6916"
+-dependencies = [
+- "iron",
+- "plugin",
+-]
+-
+-[[package]]
+-name = "plugin"
+-version = "0.2.6"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "1a6a0dc3910bc8db877ffed8e457763b317cf880df4ae19109b9f77d277cf6e0"
+-dependencies = [
+- "typemap",
+-]
+-
+-[[package]]
+-name = "route-recognizer"
+-version = "0.1.13"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "ea509065eb0b3c446acdd0102f0d46567dc30902dc0be91d6552035d92b0f4f8"
+-
+-[[package]]
+-name = "router"
+-version = "0.5.1"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "b9b1797ff166029cb632237bb5542696e54961b4cf75a324c6f05c9cf0584e4e"
+-dependencies = [
+- "iron",
+- "route-recognizer",
+- "url",
+-]
+-
+-[[package]]
+-name = "rustc-serialize"
+-version = "0.3.25"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "fe834bc780604f4674073badbad26d7219cadfb4a2275802db12cbae17498401"
+-
+-[[package]]
+-name = "safemem"
+-version = "0.3.3"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "ef703b7cb59335eae2eb93ceb664c0eb7ea6bf567079d843e09420219668e072"
+-
+-[[package]]
+-name = "serde"
+-version = "0.8.23"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "9dad3f759919b92c3068c696c15c3d17238234498bbdcc80f2c469606f948ac8"
+-
+-[[package]]
+-name = "serde_json"
+-version = "0.8.6"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "67f7d2e9edc3523a9c8ec8cd6ec481b3a27810aafee3e625d311febd3e656b4c"
+-dependencies = [
+- "dtoa",
+- "itoa",
+- "num-traits 0.1.43",
+- "serde",
+-]
+-
+-[[package]]
+-name = "time"
+-version = "0.1.45"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "1b797afad3f312d1c66a56d11d0316f916356d11bd158fbc6ca6389ff6bf805a"
+-dependencies = [
+- "libc",
+- "wasi",
+- "winapi",
+-]
+-
+-[[package]]
+-name = "tinyvec"
+-version = "1.8.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "445e881f4f6d382d5f27c034e25eb92edd7c784ceab92a0937db7f2e9471b938"
+-dependencies = [
+- "tinyvec_macros",
+-]
+-
+-[[package]]
+-name = "tinyvec_macros"
+-version = "0.1.1"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
+-
+-[[package]]
+-name = "traitobject"
+-version = "0.1.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "efd1f82c56340fdf16f2a953d7bda4f8fdffba13d93b00844c25572110b26079"
+-
+-[[package]]
+-name = "typeable"
+-version = "0.1.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "1410f6f91f21d1612654e7cc69193b0334f909dcf2c790c4826254fbb86f8887"
+-
+-[[package]]
+-name = "typemap"
+-version = "0.3.3"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "653be63c80a3296da5551e1bfd2cca35227e13cdd08c6668903ae2f4f77aa1f6"
+-dependencies = [
+- "unsafe-any",
+-]
+-
+-[[package]]
+-name = "unicase"
+-version = "1.4.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "7f4765f83163b74f957c797ad9253caf97f103fb064d3999aea9568d09fc8a33"
+-dependencies = [
+- "version_check",
+-]
+-
+-[[package]]
+-name = "unicode-bidi"
+-version = "0.3.15"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "08f95100a766bf4f8f28f90d77e0a5461bbdb219042e7679bebe79004fed8d75"
+-
+-[[package]]
+-name = "unicode-normalization"
+-version = "0.1.23"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "a56d1686db2308d901306f92a263857ef59ea39678a5458e7cb17f01415101f5"
+-dependencies = [
+- "tinyvec",
+-]
+-
+-[[package]]
+-name = "unsafe-any"
+-version = "0.4.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "f30360d7979f5e9c6e6cea48af192ea8fab4afb3cf72597154b8f08935bc9c7f"
+-dependencies = [
+- "traitobject",
+-]
+-
+-[[package]]
+-name = "url"
+-version = "1.7.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "dd4e7c0d531266369519a4aa4f399d748bd37043b00bde1e4ff1f60a120b355a"
+-dependencies = [
+- "idna",
+- "matches",
+- "percent-encoding",
+-]
+-
+-[[package]]
+-name = "urlencoded"
+-version = "0.5.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "8c28708636d6f7298a53b1cdb6af40f1ab523209a7cb83cf4d41b3ebc671d319"
+-dependencies = [
+- "bodyparser",
+- "iron",
+- "plugin",
+- "url",
+-]
+-
+-[[package]]
+-name = "version_check"
+-version = "0.1.5"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "914b1a6776c4c929a602fafd8bc742e06365d4bcbe48c30f9cca5824f70dc9dd"
+-
+-[[package]]
+-name = "wasi"
+-version = "0.10.0+wasi-snapshot-preview1"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "1a143597ca7c7793eff794def352d41792a93c481eb1042423ff7ff72ba2c31f"
+-
+-[[package]]
+-name = "winapi"
+-version = "0.3.9"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "5c839a674fcd7a98952e593242ea400abe93992746761e38641405d28b00f419"
+-dependencies = [
+- "winapi-i686-pc-windows-gnu",
+- "winapi-x86_64-pc-windows-gnu",
+-]
+-
+-[[package]]
+-name = "winapi-i686-pc-windows-gnu"
+-version = "0.4.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6"
+-
+-[[package]]
+-name = "winapi-x86_64-pc-windows-gnu"
+-version = "0.4.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
+Index: Module02/Web3/src/main.rs
+===================================================================
+diff --git a/Module02/Web3/src/main.rs b/Module02/Web3/src/main.rs
+deleted file mode 100644
+--- a/Module02/Web3/src/main.rs	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,3 +0,0 @@
+-fn main() {
+-    println!("Hello, world!");
+-}
+Index: Module02/Web3/Cargo.toml
+===================================================================
+diff --git a/Module02/Web3/Cargo.toml b/Module02/Web3/Cargo.toml
+deleted file mode 100644
+--- a/Module02/Web3/Cargo.toml	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,6 +0,0 @@
+-[package]
+-name = "Web3"
+-version = "0.1.0"
+-edition = "2021"
+-
+-[dependencies]
+Index: Module02/Web/src/test.html
+===================================================================
+diff --git a/Module02/Web/src/test.html b/Module02/Web/src/test.html
+deleted file mode 100644
+--- a/Module02/Web/src/test.html	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,52 +0,0 @@
+-<!DOCTYPE html>
+-<html lang="en">
+-<head>
+-    <meta charset="UTF-8">
+-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+-    <title>WebSocket Test</title>
+-</head>
+-<body>
+-    <h1>WebSocket Test</h1>
+-    <div id="status">Connecting...</div>
+-    <div>
+-        <input type="text" id="messageInput" placeholder="Enter message">
+-        <button onclick="sendMessage()">Send</button>
+-    </div>
+-    <div id="messages"></div>
+-
+-    <script>
+-        const statusElement = document.getElementById('status');
+-        const messagesElement = document.getElementById('messages');
+-        const messageInput = document.getElementById('messageInput');
+-
+-        const ws = new WebSocket('ws://127.0.0.1:7878');
+-
+-        ws.onopen = () => {
+-            statusElement.textContent = 'Connected';
+-        };
+-
+-        ws.onmessage = (event) => {
+-            const message = document.createElement('div');
+-            message.textContent = 'Received: ' + event.data;
+-            messagesElement.appendChild(message);
+-        };
+-
+-        ws.onclose = () => {
+-            statusElement.textContent = 'Disconnected';
+-        };
+-
+-        ws.onerror = (error) => {
+-            statusElement.textContent = 'Error: ' + error.message;
+-        };
+-
+-        function sendMessage() {
+-            const message = messageInput.value;
+-            ws.send(message);
+-            const sentMessage = document.createElement('div');
+-            sentMessage.textContent = 'Sent: ' + message;
+-            messagesElement.appendChild(sentMessage);
+-            messageInput.value = '';
+-        }
+-    </script>
+-</body>
+-</html>
+Index: Module02/Web/Cargo.toml
+===================================================================
+diff --git a/Module02/Web/Cargo.toml b/Module02/Web/Cargo.toml
+deleted file mode 100644
+--- a/Module02/Web/Cargo.toml	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ /dev/null	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
+@@ -1,11 +0,0 @@
+-[package]
+-name = "simple_web_server"
+-version = "0.1.0"
+-edition = "2021"
+-
+-[dependencies]
+-tokio = { version = "1", features = ["full"] }
+-tokio-tungstenite = "0.15"
+-futures-util = "0.3"
+-uuid = { version = "1", features = ["v4"] }
+-thiserror = "1.0"
+\ No newline at end of file
+Index: Module00/target/.rustc_info.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\"rustc_fingerprint\":10597996786871931460,\"outputs\":{\"15729799797837862367\":{\"success\":true,\"status\":\"\",\"code\":0,\"stdout\":\"___\\nlib___.rlib\\nlib___.so\\nlib___.so\\nlib___.a\\nlib___.so\\n/root/.rustup/toolchains/stable-x86_64-unknown-linux-gnu\\noff\\npacked\\nunpacked\\n___\\ndebug_assertions\\npanic=\\\"unwind\\\"\\nproc_macro\\ntarget_abi=\\\"\\\"\\ntarget_arch=\\\"x86_64\\\"\\ntarget_endian=\\\"little\\\"\\ntarget_env=\\\"gnu\\\"\\ntarget_family=\\\"unix\\\"\\ntarget_feature=\\\"fxsr\\\"\\ntarget_feature=\\\"sse\\\"\\ntarget_feature=\\\"sse2\\\"\\ntarget_has_atomic=\\\"16\\\"\\ntarget_has_atomic=\\\"32\\\"\\ntarget_has_atomic=\\\"64\\\"\\ntarget_has_atomic=\\\"8\\\"\\ntarget_has_atomic=\\\"ptr\\\"\\ntarget_os=\\\"linux\\\"\\ntarget_pointer_width=\\\"64\\\"\\ntarget_vendor=\\\"unknown\\\"\\nunix\\n\",\"stderr\":\"\"},\"4614504638168534921\":{\"success\":true,\"status\":\"\",\"code\":0,\"stdout\":\"rustc 1.78.0 (9b00956e5 2024-04-29)\\nbinary: rustc\\ncommit-hash: 9b00956e56009bab2aa15d7bff10916599e3d6d6\\ncommit-date: 2024-04-29\\nhost: x86_64-unknown-linux-gnu\\nrelease: 1.78.0\\nLLVM version: 18.1.2\\n\",\"stderr\":\"\"}},\"successes\":{}}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Module00/target/.rustc_info.json b/Module00/target/.rustc_info.json
+--- a/Module00/target/.rustc_info.json	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ b/Module00/target/.rustc_info.json	(date 1721925165667)
+@@ -1,1 +1,1 @@
+-{"rustc_fingerprint":10597996786871931460,"outputs":{"15729799797837862367":{"success":true,"status":"","code":0,"stdout":"___\nlib___.rlib\nlib___.so\nlib___.so\nlib___.a\nlib___.so\n/root/.rustup/toolchains/stable-x86_64-unknown-linux-gnu\noff\npacked\nunpacked\n___\ndebug_assertions\npanic=\"unwind\"\nproc_macro\ntarget_abi=\"\"\ntarget_arch=\"x86_64\"\ntarget_endian=\"little\"\ntarget_env=\"gnu\"\ntarget_family=\"unix\"\ntarget_feature=\"fxsr\"\ntarget_feature=\"sse\"\ntarget_feature=\"sse2\"\ntarget_has_atomic=\"16\"\ntarget_has_atomic=\"32\"\ntarget_has_atomic=\"64\"\ntarget_has_atomic=\"8\"\ntarget_has_atomic=\"ptr\"\ntarget_os=\"linux\"\ntarget_pointer_width=\"64\"\ntarget_vendor=\"unknown\"\nunix\n","stderr":""},"4614504638168534921":{"success":true,"status":"","code":0,"stdout":"rustc 1.78.0 (9b00956e5 2024-04-29)\nbinary: rustc\ncommit-hash: 9b00956e56009bab2aa15d7bff10916599e3d6d6\ncommit-date: 2024-04-29\nhost: x86_64-unknown-linux-gnu\nrelease: 1.78.0\nLLVM version: 18.1.2\n","stderr":""}},"successes":{}}
+\ No newline at end of file
++{"rustc_fingerprint":10597996786871931460,"outputs":{"14371922958718593042":{"success":true,"status":"","code":0,"stdout":"___\nlib___.rlib\nlib___.so\nlib___.so\nlib___.a\nlib___.so\n/root/.rustup/toolchains/stable-x86_64-unknown-linux-gnu\noff\npacked\nunpacked\n___\ndebug_assertions\noverflow_checks\npanic=\"unwind\"\nproc_macro\nrelocation_model=\"pic\"\ntarget_abi=\"\"\ntarget_arch=\"x86_64\"\ntarget_endian=\"little\"\ntarget_env=\"gnu\"\ntarget_family=\"unix\"\ntarget_feature=\"fxsr\"\ntarget_feature=\"sse\"\ntarget_feature=\"sse2\"\ntarget_has_atomic\ntarget_has_atomic=\"16\"\ntarget_has_atomic=\"32\"\ntarget_has_atomic=\"64\"\ntarget_has_atomic=\"8\"\ntarget_has_atomic=\"ptr\"\ntarget_has_atomic_equal_alignment=\"16\"\ntarget_has_atomic_equal_alignment=\"32\"\ntarget_has_atomic_equal_alignment=\"64\"\ntarget_has_atomic_equal_alignment=\"8\"\ntarget_has_atomic_equal_alignment=\"ptr\"\ntarget_has_atomic_load_store\ntarget_has_atomic_load_store=\"16\"\ntarget_has_atomic_load_store=\"32\"\ntarget_has_atomic_load_store=\"64\"\ntarget_has_atomic_load_store=\"8\"\ntarget_has_atomic_load_store=\"ptr\"\ntarget_os=\"linux\"\ntarget_pointer_width=\"64\"\ntarget_thread_local\ntarget_vendor=\"unknown\"\nunix\n","stderr":""},"4614504638168534921":{"success":true,"status":"","code":0,"stdout":"rustc 1.78.0 (9b00956e5 2024-04-29)\nbinary: rustc\ncommit-hash: 9b00956e56009bab2aa15d7bff10916599e3d6d6\ncommit-date: 2024-04-29\nhost: x86_64-unknown-linux-gnu\nrelease: 1.78.0\nLLVM version: 18.1.2\n","stderr":""}},"successes":{}}
+\ No newline at end of file
+Index: Module00/target/debug/Rust_Principles.d
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/mnt/c/Users/mabba/Downloads/Rust_C/Rust_Principles/target/debug/Rust_Principles: /mnt/c/Users/mabba/Downloads/Rust_C/Rust_Principles/src/cli.rs /mnt/c/Users/mabba/Downloads/Rust_C/Rust_Principles/src/main.rs\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Module00/target/debug/Rust_Principles.d b/Module00/target/debug/Rust_Principles.d
+--- a/Module00/target/debug/Rust_Principles.d	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ b/Module00/target/debug/Rust_Principles.d	(date 1721495497212)
+@@ -1,1 +1,1 @@
+-/mnt/c/Users/mabba/Downloads/Rust_C/Rust_Principles/target/debug/Rust_Principles: /mnt/c/Users/mabba/Downloads/Rust_C/Rust_Principles/src/cli.rs /mnt/c/Users/mabba/Downloads/Rust_C/Rust_Principles/src/main.rs
++/mnt/c/Users/mabba/Downloads/Invent_Rust/Module00/target/debug/Rust_Principles: /mnt/c/Users/mabba/Downloads/Invent_Rust/Module00/src/cli.rs /mnt/c/Users/mabba/Downloads/Invent_Rust/Module00/src/main.rs
+Index: Module01/SimpleCalc/src/main.rs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>use std::io;\r\n\r\nfn main() {\r\n    println!(\"Welcome to crazy cure\\n\");\r\n    println!(\"Enter the first number :\");\r\n    let mut num1 = String::new();\r\n    io::stdin().read_line(&mut num1).expect(\"Failed to read line\");\r\n    let num1: f64 = num1.trim().parse().expect(\"Please type a number!\");\r\n\r\n    println!(\"Enter the second number :\");\r\n    let mut num2 = String::new();\r\n    io::stdin().read_line(&mut num2).expect(\"Failed to read line\");\r\n    let num2: f64 = num2.trim().parse().expect(\"Please type a number!\");\r\n\r\n    println!(\"Choose an operation: +, -, *, /\");\r\n    let mut operator = String::new();\r\n    io::stdin().read_line(&mut operator).expect(\"Failed to read line\");\r\n\r\n    match operator.trim() {\r\n        \"+\" => println!(\"Result: {}\", num1 + num2),\r\n        \"-\" => println!(\"Result: {}\", num1 - num2),\r\n        \"*\" => println!(\"Result: {}\", num1 * num2),\r\n        \"/\" => {\r\n            if num2 != 0.0 {\r\n                println!(\"Result: {}\", num1 / num2);\r\n            } else {\r\n                println!(\"Cannot divide by zero\");\r\n            }\r\n        },\r\n        _ => println!(\"Invalid operation\"),\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Module01/SimpleCalc/src/main.rs b/Module01/SimpleCalc/src/main.rs
+--- a/Module01/SimpleCalc/src/main.rs	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ b/Module01/SimpleCalc/src/main.rs	(date 1721495885318)
+@@ -1,15 +1,18 @@
+ use std::io;
++use std::process::exit;
+ 
+ fn main() {
+     println!("Welcome to crazy cure\n");
+     println!("Enter the first number :");
+     let mut num1 = String::new();
+     io::stdin().read_line(&mut num1).expect("Failed to read line");
++       // Todo : Add validation check
+     let num1: f64 = num1.trim().parse().expect("Please type a number!");
+ 
+     println!("Enter the second number :");
+     let mut num2 = String::new();
+     io::stdin().read_line(&mut num2).expect("Failed to read line");
++    // Todo: Validation check
+     let num2: f64 = num2.trim().parse().expect("Please type a number!");
+ 
+     println!("Choose an operation: +, -, *, /");
+Index: Module00/target/debug/deps/Rust_Principles-8620aaf0c8450501.d
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/mnt/c/Users/mabba/Downloads/Rust_C/Rust_Principles/target/debug/deps/Rust_Principles-8620aaf0c8450501: src/main.rs src/cli.rs\r\n\r\n/mnt/c/Users/mabba/Downloads/Rust_C/Rust_Principles/target/debug/deps/Rust_Principles-8620aaf0c8450501.d: src/main.rs src/cli.rs\r\n\r\nsrc/main.rs:\r\nsrc/cli.rs:\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Module00/target/debug/deps/Rust_Principles-8620aaf0c8450501.d b/Module00/target/debug/deps/Rust_Principles-8620aaf0c8450501.d
+--- a/Module00/target/debug/deps/Rust_Principles-8620aaf0c8450501.d	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ b/Module00/target/debug/deps/Rust_Principles-8620aaf0c8450501.d	(date 1721495650411)
+@@ -1,6 +1,6 @@
+-/mnt/c/Users/mabba/Downloads/Rust_C/Rust_Principles/target/debug/deps/Rust_Principles-8620aaf0c8450501: src/main.rs src/cli.rs
++/mnt/c/Users/mabba/Downloads/Invent_Rust/Module00/target/debug/deps/Rust_Principles-8620aaf0c8450501: src/main.rs src/cli.rs
+ 
+-/mnt/c/Users/mabba/Downloads/Rust_C/Rust_Principles/target/debug/deps/Rust_Principles-8620aaf0c8450501.d: src/main.rs src/cli.rs
++/mnt/c/Users/mabba/Downloads/Invent_Rust/Module00/target/debug/deps/Rust_Principles-8620aaf0c8450501.d: src/main.rs src/cli.rs
+ 
+ src/main.rs:
+ src/cli.rs:
+Index: Module00/src/cli.rs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>use std::io::{self, Write};\r\n\r\n// Using public function\r\n\r\n// Managing Result and Option types \r\n\r\npub fn greet_user() -> io::Result<()> {\r\n    println!(\"Welcome to the cli app\");\r\n    // Explicitly flush stdout to ensure the output is displayed immediately.\r\n    // This is more relevant in buffered outputs or non-terminal outputs.\r\n    io::stdout().flush()\r\n}\r\n\r\n// \r\n#[cfg(test)]\r\nmod tests {\r\n    use super::*;\r\n    #[test]\r\n    fn test_greet_user() {\r\n        let result = greet_user();\r\n        assert!(result.is_ok());\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Module00/src/cli.rs b/Module00/src/cli.rs
+--- a/Module00/src/cli.rs	(revision 41a58f6022d55e98e79138b19515a9aaf07c6101)
++++ b/Module00/src/cli.rs	(date 1721495656939)
+@@ -5,7 +5,9 @@
+ // Managing Result and Option types 
+ 
+ pub fn greet_user() -> io::Result<()> {
+-    println!("Welcome to the cli app");
++    println!("\nWelcome to the cli app");
++    println!("lo, behold");
++
+     // Explicitly flush stdout to ensure the output is displayed immediately.
+     // This is more relevant in buffered outputs or non-terminal outputs.
+     io::stdout().flush()
+@@ -20,4 +22,4 @@
+         let result = greet_user();
+         assert!(result.is_ok());
+     }
+-}
+\ No newline at end of file
++}
