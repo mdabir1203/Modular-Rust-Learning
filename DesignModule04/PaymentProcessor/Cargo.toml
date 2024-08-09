@@ -1,0 +1,10 @@
+[package]
+name = "payment_processor"
+version = "0.1.0"
+edition = "2021"
+authors = ["uknowWho <md.abir1203@gmail.com>"]
+description = "A payment processing system demonstrating the Factory design pattern"
+
+
+[dependencies]
+fmt = "0.1.0"

@@ -15,29 +15,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70258e2e-935e-4239-8f5c-9cad9ccd284d" name="Changes" comment="added gitignore">
-      <change afterPath="$PROJECT_DIR$/Module03/Hash_Rust/src/App.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module03/Hash_Rust/src/Mycomponent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/benches/benchmark.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/auth/Readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/auth/middleware.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/auth/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/auth/tests.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/notification/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/payment/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Module03/PaymentGateway/src/transaction/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/in.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DesignModule04/PaymentProcessor/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DesignModule04/PaymentProcessor/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DesignModule04/config_man/config.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module00/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Module00/Readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module01/error/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Module01/error/Readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/auth_server/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Module02/auth_server/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module02/auth_server/src/jwt.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Module02/auth_server/src/jwt.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module03/Hash_Rust/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Module03/Hash_Rust/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module03/Hash_Rust/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Module03/Hash_Rust/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module03/Hash_Rust/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Module03/Hash_Rust/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module03/Hash_Rust/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Module03/Hash_Rust/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DesignModule04/Observer.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DesignModule04/Singleton.rs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +73,7 @@
     "Cargo.Run simple_web_server2.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.rust.reset.selective.auto.import": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Main",
     "last_opened_file_path": "C:/Users/mabba/Downloads/Invent_Rust",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -99,6 +82,7 @@
     "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
     "org.rust.first.attach.projects": "true",
     "org.rust.hideNoCargoProjectNotificationsC:/Users/mabba/Downloads/Invent_Rust/Module03/PaymentGateway/benches/benchmark.rs": "true",
+    "org.rust.hideNoCargoProjectNotificationsC:/Users/mabba/Downloads/Rust_Modular/DesignModule04/PaymentProcessor/src/main.rs": "true",
     "settings.editor.selected.configurable": "language.rust.rustfmt"
   }
 }]]></component>
@@ -108,11 +92,11 @@
       <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\Web2" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mabba\Downloads\Rust_Modular\DesignModule04\StockMarket" />
       <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module03\PaymentGateway\src\auth" />
       <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src" />
       <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src\services" />
       <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src\models" />
-      <recent name="C:\Users\mabba\Downloads\Invent_Rust\Module02\auth_server\src\handlers" />
     </key>
   </component>
   <component name="RunManager">
