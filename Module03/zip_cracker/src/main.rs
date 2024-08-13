@@ -1,9 +1,9 @@
+pub mod extractor;
+pub mod cracker;
+
 use std::env;
 use zip::ZipArchive;
 
-mod reader;
-mod extractor;
-mod cracker;
 
 #[tokio::main]
 async fn main() {
