@@ -11,6 +11,10 @@ use std::fs::File;
 use std::io::{Read, Write};
 use thiserror::Error;
 use std::fmt;
+use std::env;
+use indicatif::{ProgressBar, ProgressStyle};
+use std::thread;
+use std::time::Duration;
 
 #[derive(Debug)]
 struct PasswordHashError(argon2::password_hash::Error);
@@ -101,10 +105,6 @@ impl Vault {
 
 }
 
-use std::env;
-use indicatif::{ProgressBar, ProgressStyle};
-use std::thread;
-use std::time::Duration;
 
 fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
