@@ -16,6 +16,8 @@ use indicatif::{ProgressBar, ProgressStyle};
 use std::thread;
 use std::time::Duration;
 use std::path::Path;
+use termion::input::TermRead;
+use termion::raw::IntoRawMode;
 
 #[derive(Debug)]
 struct PasswordHashError(argon2::password_hash::Error);
@@ -73,7 +75,6 @@ impl Vault {
         let password_hash = argon2.hash_password(password.as_bytes(), &salt)
             .map_err(|e| VaultError::Argon2(e.to_string()))?
             .to_string();
-        
         let mut file = File::create(filename)?;
         file.write_all(password_hash.as_bytes())?;
         file.write_all(b"\n")?;
@@ -113,15 +114,29 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
 
     match operation {
         Some("save") => {
+            
+            let vault_file = "vault.dat";
+            if Path::new(vault_file).exists(){
+                println!("Password saved already.");
+                return Ok(());
+            }
             let mut vault = Vault::new();
             vault.add_entry("email".to_string(), "uknowwho12@gmail.com".to_string());
             vault.add_entry("api_key".to_string(), "542342".to_string());
 
             print!("Enter a password to secure the vault: ");
             io::stdout().flush()?;
-            let mut password = String::new();
-            io::stdin().read_line(&mut password)?;
+
+
+            // Enable raw mode to hide input
+            let mut stdin = io::stdin();
+            let mut stdout = io::stdout().into_raw_mode()?;
+            let password = stdin.read_passwd(&mut stdout)?.unwrap_or_default();
             let password = password.trim();
+
+            // Disable raw mode
+            write!(stdout, "\n")?;
+            stdout.suspend_raw_mode()?;
 
             let pb = ProgressBar::new(100);
             pb.set_style(ProgressStyle::default_bar()
@@ -146,9 +161,16 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
             }
             print!("Enter the password to open the vault: ");
             io::stdout().flush()?;
-            let mut password = String::new();
-            io::stdin().read_line(&mut password)?;
+
+            // Enable raw mode to hide input
+            let mut stdin = io::stdin();
+            let mut stdout = io::stdout().into_raw_mode()?;
+            let password = stdin.read_passwd(&mut stdout)?.unwrap_or_default();
             let password = password.trim();
+
+            // Disable raw mode
+            write!(stdout, "\n")?;
+            stdout.suspend_raw_mode()?;
 
             let pb = ProgressBar::new(100);
             pb.set_style(ProgressStyle::default_bar()
@@ -186,6 +208,7 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
             return Ok(());
         }
     }
-
     Ok(())
 }
+
+
