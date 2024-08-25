@@ -8,13 +8,14 @@ use argon2::{
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fs::File;
-use std::io::{Read, Write};
+use std::io::{self, Read, Write};
 use thiserror::Error;
 use std::fmt;
 use std::env;
 use indicatif::{ProgressBar, ProgressStyle};
 use std::thread;
 use std::time::Duration;
+use std::path::Path;
 
 #[derive(Debug)]
 struct PasswordHashError(argon2::password_hash::Error);
@@ -110,13 +111,17 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
     let operation = args.get(1).map(String::as_str);
 
-    let mut vault = Vault::new();
-    let password = "secure_password";
-
     match operation {
         Some("save") => {
+            let mut vault = Vault::new();
             vault.add_entry("email".to_string(), "uknowwho12@gmail.com".to_string());
             vault.add_entry("api_key".to_string(), "542342".to_string());
+
+            print!("Enter a password to secure the vault: ");
+            io::stdout().flush()?;
+            let mut password = String::new();
+            io::stdin().read_line(&mut password)?;
+            let password = password.trim();
 
             let pb = ProgressBar::new(100);
             pb.set_style(ProgressStyle::default_bar()
@@ -133,6 +138,18 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
             pb.finish_with_message("Vault secured successfully");
         }
         Some("load") => {
+
+            let vault_file = "vault.dat";
+            if !Path::new(vault_file).exists(){
+                println!("Vault doesn't exist. Run the save command.");
+                return Ok(());
+            }
+            print!("Enter the password to open the vault: ");
+            io::stdout().flush()?;
+            let mut password = String::new();
+            io::stdin().read_line(&mut password)?;
+            let password = password.trim();
+
             let pb = ProgressBar::new(100);
             pb.set_style(ProgressStyle::default_bar()
                 .template("{spinner:.green} [{elapsed_precise}] [{bar:40.cyan/blue}] {pos}/{len} ({eta})")
@@ -144,11 +161,25 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
                 thread::sleep(Duration::from_millis(20));
             }
 
-            let loaded_vault = Vault::load_from_file("vault.dat", password).map_err(|e| Box::new(e) as Box<dyn std::error::Error>)?;
-            pb.finish_with_message("Vault loaded successfully");
-
-            println!("Email: {:?}", loaded_vault.get_entry("email"));
-            println!("API Key: {:?}", loaded_vault.get_entry("api_key"));
+            match Vault::load_from_file(vault_file, password) {
+                Ok(loaded_vault) => {
+                    pb.finish_with_message("Vault loaded successfully");
+                    if let Some(email) = loaded_vault.get_entry("email") {
+                        println!("Email: {}", email);
+                    }
+                    if let Some(api_key) = loaded_vault.get_entry("api_key") {
+                        println!("API Key: {}", api_key);
+                    }
+                }
+                Err(VaultError::InvalidPassword) => {
+                    pb.finish_with_message("Failed to open vault");
+                    println!("Invalid password. Access denied.");
+                }
+                Err(e) => {
+                    pb.finish_with_message("Failed to open vault");
+                    return Err(Box::new(e));
+                }
+            }
         }
         _ => {
             println!("Usage: cargo run -- [save|load]");
