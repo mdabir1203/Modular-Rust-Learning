@@ -107,6 +107,27 @@ impl Vault {
 
 }
 
+fn is_password_strong(password: &str) -> bool {
+    // Check password length
+    if password.len() < 8 {
+        return false;
+    }
+    // Check for at least one digit
+    if !password.chars().any(char::is_numeric) {
+        return false;
+    }
+    // Check for at least one uppercase letter
+    if !password.chars().any(char::is_uppercase) {
+        return false;
+    }
+    // Check for at least one special character
+    if !password.chars().any(|c| "!@#$%^&*()_+-=[]{}|;':\",.<>?/`~".contains(c)) {
+        return false;
+    }
+    true
+}
+
+
 
 fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
@@ -127,13 +148,24 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
             print!("Enter a password to secure the vault: ");
             io::stdout().flush()?;
 
-
-            // Enable raw mode to hide input
+            let mut password = String::new(); // Initialize password variable
             let mut stdin = io::stdin();
             let mut stdout = io::stdout().into_raw_mode()?;
-            let password = stdin.read_passwd(&mut stdout)?.unwrap_or_default();
-            let password = password.trim();
+            // Check for empty password and password strength
+            loop {
+                let new_password = stdin.read_passwd(&mut stdout)?.unwrap_or_default();
+                password = new_password.trim().to_string(); // Update password here
 
+                if password.is_empty() {
+                    writeln!(stdout, "\nPassword cannot be empty. Please try again: ")?;
+                } else if !is_password_strong(&password) {
+                    writeln!(stdout, "\nPassword must be at least 8 characters long, contain a digit, an uppercase letter, and a special character. Please try again: ")?;
+                } else {
+                    break; // Break the loop if password is valid
+                }
+                stdout.flush()?;
+            }
+            
             // Disable raw mode
             write!(stdout, "\n")?;
             stdout.suspend_raw_mode()?;

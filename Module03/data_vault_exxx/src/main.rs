@@ -22,6 +22,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let mut vault = Vault::new();
             vault.add_entry("email".to_string(), "uknowwho12@gmail.com".to_string());
             vault.add_entry("api_key".to_string(), "542342".to_string());
+            vault.add_entry("secret_key".to_string(), "radish".to_string());
 
             let password = get_password("Enter a password to secure the vault: ")?;
             show_progress();
