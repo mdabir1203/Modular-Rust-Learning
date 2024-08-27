@@ -14,7 +14,12 @@ pub fn get_password(prompt: &str) -> io::Result<String> {
     let password = stdin.read_passwd(&mut stdout)?.unwrap_or_default();
     let password = password.trim().to_string();
 
-    writeln!(stdout)?;
+    writeln!(stdout).map_err(|e| {
+        if e.kind() == io::ErrorKind::BrokenPipe {
+            log::error!("Broken pipe error: {}", e);
+        }
+        e
+    })?;
     stdout.suspend_raw_mode()?;
 
     Ok(password)
