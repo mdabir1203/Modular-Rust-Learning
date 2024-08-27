@@ -4,7 +4,7 @@ pub mod utils;
 pub mod gui;
 
 use eframe::run_native;
-use log::{error, info};
+use log::{error};
 use arboard::Clipboard;
 use std::time::Duration;
 use std::thread;

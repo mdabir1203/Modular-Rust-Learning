@@ -13,7 +13,7 @@ use crate::errors::{Result, VaultError, PasswordHashError}; // Custom error type
 // Define the Vault struct to hold data
 #[derive(Serialize, Deserialize)]
 pub struct Vault {
-    data: HashMap<String, String>, // A HashMap to store key-value pairs
+    pub data: HashMap<String, String>, // A HashMap to store key-value pairs
 }
 
 impl Vault {
