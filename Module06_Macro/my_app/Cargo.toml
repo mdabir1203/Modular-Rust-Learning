@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-my_macro = { path = "../my_macro" }  # Adjust the path as necessary
+my_macro = { path = "../procedural_macro" }  # Adjust the path as necessary
