@@ -42,7 +42,7 @@ To get started with this project, ensure you have Rust and Cargo installed on yo
 Once Rust is installed, you can clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/mdabir1203/InventRust.git
+git@github.com:mdabir1203/Modular-Rust-Learning.git
 ```
 
 Navigate into the project directory:
