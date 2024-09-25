@@ -1,7 +1,3 @@
-
-
-
-
 Some specific and precise use cases for a reusable modular event system component like the one we've coded here are:
 
 Game Development:
