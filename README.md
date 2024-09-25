@@ -54,7 +54,7 @@ To run the application, execute: ``` cargo build --release ```
 Various Projects have various usecases. The github readme in each folder will give you what the project is about. Also check Medium Articles and Podcast on the Repo 
 
 1. Medium : https://www.medium.com/@md.abir1203
-2. Youtube: [Youtube](https://www.youtube.com/@uKnowWhoAb1r)
+2. Youtube: [Rust Radio](https://www.youtube.com/@uKnowWhoAb1r)
 
 ## Contributing
 
