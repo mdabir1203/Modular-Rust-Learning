@@ -1,0 +1,22 @@
+[package]
+name = "distributed-kv-store"
+version = "0.1.0"
+edition = "2021"
+
+default-run = "distributed-kv-store"
+
+[dependencies]
+tokio = { version = "1.40.0", features = ["full"] }
+serde = { version = "1.0.160", features = ["derive"] }
+serde_json = "1.0.105"
+thiserror = "1.0.40"
+anyhow = "1.0.71"
+tracing = "0.1.37"
+tracing-subscriber = "0.3.17"
+async-trait = "0.1.68"
+dashmap = "5.5.0"
+uuid = { version = "1.4.1", features = ["v4"] }
+config = "0.14.0"
+aes-gcm = "0.10.3"
+jsonwebtoken = "9.3.0"
+dotenv = "0.15.0"
