@@ -1,5 +1,6 @@
 # Rust Project-Based Learning Application
-![Rust](https://github.com/user-attachments/assets/2f2412bf-9ff9-4656-b64c-4f99521c59a8)
+![Rust](https://github.com/user-attachments/assets/2f2412bf-9ff9-4656-b64c-4f99521c59a8)[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmdabir1203%2FModular-Rust-Learning.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmdabir1203%2FModular-Rust-Learning?ref=badge_shield)
+
 
 
 This repository represents various Modular Projects based on Rust Programming Language. The goal is to learn various programming concepts of Rust through building Projects. The idea is inspired from @JohnCrickett Challenge. 
@@ -56,3 +57,7 @@ Various Projects have various usecases. The github readme in each folder will gi
 ## Contributing
 
 Contributions to this project are welcome! Whether it's submitting bug reports, suggesting enhancements, or contributing code, all forms of collaboration are appreciated.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmdabir1203%2FModular-Rust-Learning.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmdabir1203%2FModular-Rust-Learning?ref=badge_large)
