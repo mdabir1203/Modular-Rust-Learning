@@ -1,0 +1,11 @@
+[package]
+name = "load_balancer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+lazy_static = "1.5.0"
+log = "0.4.22"
+prometheus = "0.13.4"
+simplelog = "0.12.2"
+warp = "0.3.7"

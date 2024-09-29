@@ -12,15 +12,3 @@ Cargo.lock
 
 # Ignore editor-specific files
 .vscode/
-
-# Ignore test files
-*.rs
-
-# Ignore documentation files
-*.md
-
-# Ignore example files
-examples/
-
-# Ignore git-specific files
-.git/
