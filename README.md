@@ -1,5 +1,6 @@
 # Rust Project-Based Learning Application
-![Rust](https://github.com/user-attachments/assets/2f2412bf-9ff9-4656-b64c-4f99521c59a8)[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmdabir1203%2FModular-Rust-Learning.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmdabir1203%2FModular-Rust-Learning?ref=badge_shield)
+![Rust](https://github.com/user-attachments/assets/2f2412bf-9ff9-4656-b64c-4f99521c59a8)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmdabir1203%2FModular-Rust-Learning.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmdabir1203%2FModular-Rust-Learning?ref=badge_shield)
 
 
 
@@ -57,6 +58,8 @@ Various Projects have various usecases. The github readme in each folder will gi
 ## Contributing
 
 Contributions to this project are welcome! Whether it's submitting bug reports, suggesting enhancements, or contributing code, all forms of collaboration are appreciated.
+
+Check writings here : https://www.medium.com/@md.abir1203
 
 
 ## License
