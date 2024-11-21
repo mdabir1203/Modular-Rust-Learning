@@ -64,7 +64,7 @@ impl MinHeap {
         }
     }
 
-    pub fn display(&self) {
-        println!("Min Heap: {:?}", &self.heap);
+    pub fn display(&self) -> String {
+        format!("{:?}", &self.heap)
     }
 }

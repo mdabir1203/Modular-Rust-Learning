@@ -1,0 +1,8 @@
+[package]
+name = "paas"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bencher = "0.1.5"
+mockall = "0.13.0"
