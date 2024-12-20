@@ -42,6 +42,8 @@ fn main() {
     engine.insert("Cplusplus".to_string(), "https://cplusplus.com/".to_string());
     engine.insert("rust programming".to_string(), "https://doc.rust-lang.org".to_string());
     engine.insert("web development".to_string(), "https://developer.mozilla.org".to_string());
+    engine.insert("web development".to_string(), "https://google.com".to_string());
+
 
     // Retrieving data
     if let Some(urls) = engine.get("rust programming") {

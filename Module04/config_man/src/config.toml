@@ -1,5 +1,0 @@
-key_from_thread_1 = new_value_from_thread_1
-key_from_thread_2 = new_value_from_thread_2
-key_from_thread_0 = new_value_from_thread_0
-api_key = "your_initial_api_key"
-database_url = "postgres://user:password@localhost/dbname"
