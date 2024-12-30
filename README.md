@@ -6,6 +6,8 @@
 
 This repository represents various Modular Projects based on Rust Programming Language. The goal is to learn various programming concepts of Rust through building Projects. The idea is inspired from @JohnCrickett Challenge. 
 
+[![CI](https://github.com/mdabir1203/Modular-Rust-Learning/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/mdabir1203/Modular-Rust-Learning/actions/workflows/CI.yml)
+
 # WHY \ What \ How 
 
 ### Progressive Learning Path
