@@ -34,16 +34,34 @@ jobs:
         module:
           - Module00
           - Module01/error
-          - Module01/SimpleCalc
+          - Module01/simple_calc
           - Module01/Todo
-          # - Module02/auth_server
+          # - Module02
           - Module02/Chatbot
           - Module02/gitCheck
           - Module02/Web1
           - Module02/Web2
-          # - Module03/zip_cracker
-          - DesignModule04/config_man
-          - DesignModule04/StockMarket
+          - Module02/Auth
+          - Module02/auth_server
+          # - Module03
+          - Module03/data_vault
+          - Module03/data_vault_exx
+          # - Module05
+          - Module03/cachecomponent
+          - Module03/consolelog
+          # Module 07
+          - Module07/btreemap/src
+          - Module07/valuetree
+          # Module08
+          - Module08/banking
+          # Module09
+          - Module09/rust_backend
+          - Module09/tokenize
+          # Module10
+          - Module10/generic
+          - Module10/performanceCheck
+          
+          
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
